@@ -420,6 +420,69 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }
+ 
+  // UPDATE DASHBOARD MARKET PRICES
+  async function updateDashboardPrices() {
+    const dashboardCoins = [
+      { id: "bitcoin", symbol: "btc" },
+      { id: "ethereum", symbol: "eth" },
+      { id: "binancecoin", symbol: "bnb" },
+      { id: "solana", symbol: "sol" }
+    ];
 
+    try {
+      const response = await fetch(
+        "https://oinance-crypto-api.emmycryptolord.workers.dev/coins?page=1"
+      );
+
+      if (!response.ok) {
+        throw new Error("Market data unavailable");
+      }
+
+      const coins = await response.json();
+
+      dashboardCoins.forEach(function (target) {
+        const coin = coins.find(function (item) {
+          return item.id === target.id;
+        });
+
+        if (!coin) return;
+
+        const card = document.querySelector(
+          '.stat-card .crypto-icon[src*="/' + target.symbol + '@2x.png"]'
+        );
+
+        if (!card) return;
+
+        const details = card.parentElement;
+        const priceElement = details.querySelector("strong");
+
+        if (priceElement) {
+          priceElement.textContent = formatPrice(coin.current_price);
+        }
+
+        const changeElement = card
+          .closest(".stat-card")
+          .querySelector(".positive");
+
+        if (changeElement) {
+          const change = Number(coin.price_change_percentage_24h);
+
+          if (Number.isFinite(change)) {
+            changeElement.textContent =
+              (change > 0 ? "+" : "") + change.toFixed(2) + "%";
+
+            changeElement.className =
+              change >= 0 ? "positive" : "negative";
+          }
+        }
+      });
+    } catch (error) {
+      console.error("OINANCE dashboard prices:", error);
+    }
+  }
+
+  updateDashboardPrices();
+  
   loadDirectory();
 });
