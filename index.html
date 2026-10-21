@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#080b10">
+  <meta name="description" content="OINANCE Wallet — explore digital assets in one place.">
   <title>OINANCE Wallet</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -21,6 +22,7 @@
     <nav class="navigation">
       <a class="nav-link active" href="#home">▦ <span>Overview</span></a>
       <a class="nav-link" href="#assets">◈ <span>My Assets</span></a>
+      <a class="nav-link" href="#explore-assets">⌕ <span>Explore Coins</span></a>
       <a class="nav-link" href="#send">↗ <span>Send</span></a>
       <a class="nav-link" href="#receive">↙ <span>Receive</span></a>
       <a class="nav-link" href="#swap">⇄ <span>Swap</span></a>
@@ -214,6 +216,58 @@
           <p>These balances are examples. No real crypto is connected.</p>
         </div>
       </article>
+
+    </section>
+
+    <!-- EXPLORE CRYPTOCURRENCIES -->
+    <section class="panel action-panel" id="explore-assets">
+
+      <div class="panel-heading">
+        <div>
+          <h2>Explore Cryptocurrencies</h2>
+          <p class="muted">Discover digital assets with available logos.</p>
+        </div>
+        <span class="pill" id="assetCount">Loading...</span>
+      </div>
+
+      <div class="asset-search">
+        <input
+          id="assetSearch"
+          type="search"
+          placeholder="Search Bitcoin, Ethereum, BTC..."
+          aria-label="Search cryptocurrencies">
+
+        <select id="assetSort" aria-label="Sort cryptocurrencies">
+          <option value="rank">Market ranking</option>
+          <option value="name">Name A–Z</option>
+          <option value="price">Highest price</option>
+        </select>
+      </div>
+
+      <div class="asset-directory-info">
+        <span id="assetStatus">Connecting to cryptocurrency data...</span>
+      </div>
+
+      <div id="assetDirectory" class="asset-directory">
+        <p class="muted">Loading cryptocurrency listings...</p>
+      </div>
+
+      <button
+        class="button button-outline"
+        id="loadMoreAssets"
+        type="button"
+        hidden>
+        Load more assets
+      </button>
+
+      <p class="data-attribution">
+        Market data provided by
+        <a href="https://coinpaprika.com/"
+           target="_blank"
+           rel="noopener noreferrer">CoinPaprika</a>.
+        Listings and logos depend on external service availability.
+      </p>
+
     </section>
 
     <section class="panel action-panel" id="send">
@@ -296,6 +350,7 @@
 
   </main>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>
