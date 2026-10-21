@@ -1002,3 +1002,201 @@ h1 span {
     min-width: 80px;
   }
 }
+/* ==================================
+   OINANCE WALLET - COIN DETAILS
+================================== */
+
+.crypto-details {
+  width: 100%;
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 22px;
+  box-sizing: border-box;
+  color: #f5f5f5;
+  background: #101010;
+  border: 1px solid #302819;
+  border-radius: 22px;
+}
+
+.crypto-details[hidden] {
+  display: none !important;
+}
+
+.close-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 26px;
+  padding: 10px 15px;
+  color: #e4bd65;
+  background: #1b1914;
+  border: 1px solid #49391d;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.close-details:hover {
+  background: #292217;
+}
+
+.crypto-details-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.crypto-details-header img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.crypto-details-header h2 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.crypto-details-header p {
+  margin: 0;
+  color: #aaa49a;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.crypto-details-price-card {
+  padding: 24px 20px;
+  margin-bottom: 22px;
+  background: linear-gradient(135deg, #211c11, #141414);
+  border: 1px solid #49391d;
+  border-radius: 18px;
+}
+
+.crypto-details-price-card > p:first-child {
+  margin: 0 0 10px;
+  color: #b9b1a2;
+  font-size: 14px;
+}
+
+.crypto-details-price-card h2 {
+  margin: 0 0 12px;
+  color: #f0cc75;
+  font-size: clamp(27px, 6vw, 38px);
+  overflow-wrap: anywhere;
+}
+
+#detailsCoinChange {
+  margin: 0;
+  color: #42d392;
+  font-size: 14px;
+}
+
+#detailsCoinChange.negative {
+  color: #ff7777;
+}
+
+.crypto-details-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.crypto-details-stats > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 76px;
+  padding: 16px;
+  box-sizing: border-box;
+  background: #191919;
+  border: 1px solid #2d2a24;
+  border-radius: 14px;
+}
+
+.crypto-details-stats span {
+  color: #a9a49a;
+  font-size: 12px;
+}
+
+.crypto-details-stats strong {
+  color: #f4f0e8;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.details-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.details-actions button {
+  min-height: 48px;
+  padding: 12px 8px;
+  color: #15120b;
+  background: #e4bd65;
+  border: 1px solid #e4bd65;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.details-actions button:hover {
+  background: #f1d58e;
+  transform: translateY(-1px);
+}
+
+.details-actions button:active {
+  transform: scale(0.98);
+}
+
+.details-chart-note {
+  margin: 18px 0 10px;
+  color: #918b80;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+#detailsStatus {
+  color: #c6bca9;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 420px) {
+  .crypto-details {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .crypto-details-stats {
+    gap: 9px;
+  }
+
+  .crypto-details-stats > div {
+    padding: 12px;
+  }
+
+  .crypto-details-stats strong {
+    font-size: 13px;
+  }
+
+  .details-actions {
+    gap: 7px;
+  }
+
+  .details-actions button {
+    font-size: 12px;
+  }
+}
