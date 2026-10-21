@@ -359,43 +359,35 @@ document.addEventListener("DOMContentLoaded", function () {
         statusLabel.textContent = "Loading cryptocurrency listings...";
       }
 
-      /*
-       * CoinPaprika public ticker endpoint.
-       * It may be rate-limited or temporarily unavailable.
-       */
       const response = await fetch(
-        "https://api.coinpaprika.com/v1/tickers?quotes=USD",
-        { method: "GET" }
+        "https://oinance-crypto-api.emmycryptolord.workers.dev/coins?page=1"
       );
 
       if (!response.ok) {
-        throw new Error("Market data service returned " + response.status);
+        throw new Error("API error: " + response.status);
       }
 
       const data = await response.json();
 
       if (!Array.isArray(data)) {
-        throw new Error("Unexpected market data format.");
+        throw new Error("Invalid API data.");
       }
 
-      allAssets = data
-        .filter(function (asset) {
-          return (
-            asset &&
-            typeof asset.id === "string" &&
-            typeof asset.name === "string" &&
-            typeof asset.symbol === "string"
-          );
-        })
-        .map(function (asset) {
-          return {
-            id: asset.id,
-            name: asset.name,
-            symbol: asset.symbol,
-            rank: Number(asset.rank || 999999),
-            quotes: asset.quotes || {}
-          };
-        });
+      allAssets = data.map(function (asset) {
+        return {
+          id: asset.id,
+          name: asset.name,
+          symbol: asset.symbol,
+          image: asset.image || "",
+          rank: Number(asset.market_cap_rank || 999999),
+          quotes: {
+            USD: {
+              price: asset.current_price,
+              percent_change_24h: asset.price_change_percentage_24h
+            }
+          }
+        };
+      });
 
       if (statusLabel) {
         statusLabel.textContent =
