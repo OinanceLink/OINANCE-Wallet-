@@ -220,16 +220,15 @@ document.addEventListener("DOMContentLoaded", function () {
     priceArea.append(price, change);
     row.append(image, details, priceArea);
 
-    image.onload = function () {
-      if (image.naturalWidth > 0) {
-        row.hidden = false;
-      } else {
-        row.remove();
+        image.onload = function () {
+      if (image.naturalWidth <= 0) {
+        image.style.display = "none";
       }
+      updateCount();
     };
 
     image.onerror = function () {
-      row.remove();
+      image.style.display = "none";
       updateCount();
     };
 
