@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function createAssetRow(asset) {
     const row = document.createElement("article");
     row.className = "directory-coin";
-    row.hidden = true;
+    row.hidden = false;
 
     const image = document.createElement("img");
     image.className = "directory-logo";
