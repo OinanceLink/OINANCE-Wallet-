@@ -249,40 +249,67 @@
       </div>
 
       <div id="cryptoDetails" class="crypto-details" hidden>
+
   <button type="button" id="closeCryptoDetails" class="close-details">
     ← Back to Markets
-  </button>  <div class="crypto-details-header">
+  </button>
+
+  <div class="crypto-details-header">
     <img id="detailsCoinLogo" src="" alt="Cryptocurrency logo">
+
     <div>
       <h2 id="detailsCoinName">Bitcoin</h2>
       <p id="detailsCoinSymbol">BTC</p>
     </div>
-  </div>  <div class="crypto-details-price-card">
+  </div>
+
+  <div class="crypto-details-price-card">
     <p>Current Price</p>
     <h2 id="detailsCoinPrice">Loading...</h2>
     <p id="detailsCoinChange">Loading 24-hour change...</p>
-  </div>  <div class="crypto-details-stats">
+  </div>
+
+  <div class="crypto-details-stats">
+
     <div>
       <span>Market Cap</span>
       <strong id="detailsMarketCap">Loading...</strong>
-    </div><div>
-  <span>24h High</span>
-  <strong id="detailsHigh">Loading...</strong>
-</div>
+    </div>
 
-<div>
-  <span>24h Low</span>
-  <strong id="detailsLow">Loading...</strong>
-</div>
+    <div>
+      <span>24h High</span>
+      <strong id="detailsHigh">Loading...</strong>
+    </div>
 
-<div>
-  <span>24h Trading Volume</span>
-  <strong id="detailsVolume">Loading...</strong>
-</div>
+    <div>
+      <span>24h Low</span>
+      <strong id="detailsLow">Loading...</strong>
+    </div>
 
-<div>
-  <span>Market Rank</span>
-  <strong id="detailsRank">Loading...</strong>
+    <div>
+      <span>24h Trading Volume</span>
+      <strong id="detailsVolume">Loading...</strong>
+    </div>
+
+    <div>
+      <span>Market Rank</span>
+      <strong id="detailsRank">Loading...</strong>
+    </div>
+
+  </div>
+
+  <div class="details-actions">
+    <button type="button" id="detailsSendButton">Send</button>
+    <button type="button" id="detailsReceiveButton">Receive</button>
+    <button type="button" id="detailsSwapButton">Swap</button>
+  </div>
+
+  <p class="details-chart-note">
+    Market information is provided for reference.
+  </p>
+
+  <p id="detailsStatus" class="muted" aria-live="polite"></p>
+
 </div>
 
   </div>  <p id="detailsStatus" class="muted" aria-live="polite"></p>
