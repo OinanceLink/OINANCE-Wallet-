@@ -125,13 +125,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return "$0.00";
   }
 
-  // LOGO URL FOR COINPAPRIKA ASSET IDS
+  // LOGO URL FOR COINGECKO
   function logoUrl(asset) {
-    return (
-      "https://static.coinpaprika.com/coin/" +
-      encodeURIComponent(asset.id) +
-      "/logo.png"
-    );
+    return asset.image || "";
   }
 
   // VERIFY THAT A LOGO IMAGE ACTUALLY LOADS.
