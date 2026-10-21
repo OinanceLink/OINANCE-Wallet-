@@ -20,12 +20,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const statusLabel = document.getElementById("assetStatus");
   const loadMoreButton = document.getElementById("loadMoreAssets");
 
+  const detailsPanel = document.getElementById("cryptoDetails");
+  const explorePanel = document.getElementById("explore-assets");
+  const closeDetailsButton = document.getElementById("closeCryptoDetails");
+
+  const API_URL =
+    "https://oinance-crypto-api.emmycryptolord.workers.dev/coins?page=1";
+
   const PAGE_SIZE = 30;
 
   let allAssets = [];
   let visibleAssets = [];
   let displayedCount = 0;
-  let logoChecks = new Map();
   let loadingMore = false;
 
   function showMessage(element, message) {
@@ -34,13 +40,78 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // FORMAT PRICES
+  function formatPrice(value) {
+    const number = Number(value);
+
+    if (value === null || value === undefined || value === "") {
+      return "Unavailable";
+    }
+
+    if (!Number.isFinite(number)) {
+      return "Unavailable";
+    }
+
+    if (number >= 1) {
+      return number.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 2
+      });
+    }
+
+    if (number > 0) {
+      return (
+        "$" +
+        number.toLocaleString("en-US", {
+          maximumFractionDigits: 8
+        })
+      );
+    }
+
+    return "$0.00";
+  }
+
+  // FORMAT LARGE MARKET VALUES
+  function formatLargeNumber(value) {
+    if (value === null || value === undefined || value === "") {
+      return "Unavailable";
+    }
+
+    const number = Number(value);
+
+    if (!Number.isFinite(number) || number < 0) {
+      return "Unavailable";
+    }
+
+    if (number >= 1e12) {
+      return "$" + (number / 1e12).toFixed(2) + "T";
+    }
+
+    if (number >= 1e9) {
+      return "$" + (number / 1e9).toFixed(2) + "B";
+    }
+
+    if (number >= 1e6) {
+      return "$" + (number / 1e6).toFixed(2) + "M";
+    }
+
+    if (number >= 1e3) {
+      return "$" + (number / 1e3).toFixed(2) + "K";
+    }
+
+    return "$" + number.toLocaleString("en-US", {
+      maximumFractionDigits: 2
+    });
+  }
+
   // DEMONSTRATION SEND FORM
   if (sendForm) {
     sendForm.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const address = sendAddress.value.trim();
-      const amount = Number(sendAmount.value);
+      const address = sendAddress ? sendAddress.value.trim() : "";
+      const amount = sendAmount ? Number(sendAmount.value) : NaN;
 
       if (!address) {
         showMessage(sendMessage, "Enter a demo recipient label first.");
@@ -48,7 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (!Number.isFinite(amount) || amount <= 0) {
-        showMessage(sendMessage, "Enter a sample amount greater than zero.");
+        showMessage(
+          sendMessage,
+          "Enter a sample amount greater than zero."
+        );
         return;
       }
 
@@ -57,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "DEMO ONLY: No cryptocurrency was sent. " +
           amount +
           " on " +
-          sendNetwork.value +
-          " is a preview only."
+          (sendNetwork ? sendNetwork.value : "the selected network") +
+          " is only a preview."
       );
     });
   }
@@ -86,12 +160,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // NAVIGATION
   document.querySelectorAll(".nav-link[href^='#']").forEach(function (link) {
     link.addEventListener("click", function () {
-      const target = link.getAttribute("href");
-
-      if (target === "#") {
-        return;
-      }
-
       document.querySelectorAll(".nav-link").forEach(function (item) {
         item.classList.remove("active");
       });
@@ -100,184 +168,289 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // SAFE PRICE FORMATTING
-  function formatPrice(value) {
-    const number = Number(value);
-
-    if (!Number.isFinite(number)) {
-      return "Unavailable";
-    }
-
-    if (number >= 1) {
-      return number.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 2
-      });
-    }
-
-    if (number > 0) {
-      return "$" + number.toLocaleString("en-US", {
-        maximumFractionDigits: 8
-      });
-    }
-
-    return "$0.00";
-  }
-
-  // LOGO URL FOR COINGECKO
+  // GET A COIN LOGO
   function logoUrl(asset) {
     return asset.image || "";
   }
 
-  // VERIFY THAT A LOGO IMAGE ACTUALLY LOADS.
-  // Assets without a loadable logo are not displayed.
-  function verifyLogo(asset) {
-    if (logoChecks.has(asset.id)) {
-      return logoChecks.get(asset.id);
+  // DISPLAY COIN DETAILS
+  function openCryptoDetails(asset) {
+    if (!detailsPanel || !explorePanel) {
+      showMessage(
+        statusLabel,
+        "The coin details screen is not available in the current HTML yet."
+      );
+      return;
     }
 
-    const promise = new Promise(function (resolve) {
-      const image = new Image();
-      let finished = false;
+    const logo = document.getElementById("detailsCoinLogo");
+    const name = document.getElementById("detailsCoinName");
+    const symbol = document.getElementById("detailsCoinSymbol");
+    const price = document.getElementById("detailsCoinPrice");
+    const change = document.getElementById("detailsCoinChange");
+    const marketCap = document.getElementById("detailsMarketCap");
+    const high = document.getElementById("detailsHigh");
+    const low = document.getElementById("detailsLow");
+    const volume = document.getElementById("detailsVolume");
+    const rank = document.getElementById("detailsRank");
+    const status = document.getElementById("detailsStatus");
 
-      const timer = setTimeout(function () {
-        if (!finished) {
-          finished = true;
-          resolve(false);
-        }
-      }, 12000);
+    if (name) {
+      name.textContent = asset.name || "Cryptocurrency";
+    }
 
-      image.onload = function () {
-        if (finished) return;
+    if (symbol) {
+      symbol.textContent = String(asset.symbol || "").toUpperCase();
+    }
 
-        finished = true;
-        clearTimeout(timer);
-        resolve(image.naturalWidth > 0 && image.naturalHeight > 0);
+    if (price) {
+      price.textContent = formatPrice(asset.quotes?.USD?.price);
+    }
+
+    if (change) {
+      const percentage = Number(
+        asset.quotes?.USD?.percent_change_24h
+      );
+
+      if (
+        asset.quotes?.USD?.percent_change_24h !== null &&
+        asset.quotes?.USD?.percent_change_24h !== undefined &&
+        Number.isFinite(percentage)
+      ) {
+        change.textContent =
+          (percentage > 0 ? "+" : "") +
+          percentage.toFixed(2) +
+          "% over 24 hours";
+
+        change.className =
+          percentage >= 0 ? "positive" : "negative";
+      } else {
+        change.textContent = "24-hour price change unavailable";
+        change.className = "muted";
+      }
+    }
+
+    if (logo) {
+      logo.onerror = function () {
+        logo.style.visibility = "hidden";
       };
 
-      image.onerror = function () {
-        if (finished) return;
-
-        finished = true;
-        clearTimeout(timer);
-        resolve(false);
+      logo.onload = function () {
+        logo.style.visibility = "visible";
       };
 
-      image.src = logoUrl(asset);
+      logo.style.visibility = "visible";
+      logo.alt = (asset.name || "Cryptocurrency") + " logo";
+      logo.src = logoUrl(asset);
+    }
+
+    if (marketCap) {
+      marketCap.textContent = formatLargeNumber(asset.marketCap);
+    }
+
+    if (high) {
+      high.textContent = formatPrice(asset.high24h);
+    }
+
+    if (low) {
+      low.textContent = formatPrice(asset.low24h);
+    }
+
+    if (volume) {
+      volume.textContent = formatLargeNumber(asset.volume24h);
+    }
+
+    if (rank) {
+      rank.textContent =
+        asset.rank && asset.rank < 999999
+          ? "#" + asset.rank
+          : "Unavailable";
+    }
+
+    if (status) {
+      status.textContent =
+        "Market information only. OINANCE Wallet is currently a prototype.";
+    }
+
+    detailsPanel.hidden = false;
+    explorePanel.classList.add("details-open");
+
+    detailsPanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  // RETURN TO THE COIN DIRECTORY
+  function closeCryptoDetails() {
+    if (!detailsPanel || !explorePanel) return;
+
+    detailsPanel.hidden = true;
+    explorePanel.classList.remove("details-open");
+
+    explorePanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  if (closeDetailsButton) {
+    closeDetailsButton.addEventListener(
+      "click",
+      closeCryptoDetails
+    );
+  }
+
+  // COIN DETAILS ACTION BUTTONS
+  function connectDetailAction(buttonId, targetId, messageId, message) {
+    const button = document.getElementById(buttonId);
+
+    if (!button) return;
+
+    button.addEventListener("click", function () {
+      const target = document.getElementById(targetId);
+      const output = document.getElementById(messageId);
+
+      if (output) {
+        output.textContent = message;
+      }
+
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+  }
+
+  connectDetailAction(
+    "detailsSendButton",
+    "send",
+    "sendMessage",
+    "DEMO ONLY: This is not a real transaction. Sending is not connected."
+  );
+
+  connectDetailAction(
+    "detailsReceiveButton",
+    "receive",
+    "receiveMessage",
+    "DEMO ONLY: No real receiving address is available."
+  );
+
+  connectDetailAction(
+    "detailsSwapButton",
+    "swap",
+    "swapMessage",
+    "DEMO ONLY: Swapping is not connected to a blockchain or exchange."
+  );
+
+  // BUILD ONE CRYPTOCURRENCY ROW
+  function createAssetRow(asset) {
+    const row = document.createElement("article");
+
+    row.className = "directory-coin";
+    row.tabIndex = 0;
+    row.setAttribute("role", "button");
+    row.setAttribute(
+      "aria-label",
+      "View details for " + asset.name
+    );
+
+    const image = document.createElement("img");
+
+    image.className = "directory-logo";
+    image.alt = asset.name + " logo";
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    image.onerror = function () {
+      image.style.display = "none";
+    };
+
+    image.onload = function () {
+      image.style.display = "block";
+    };
+
+    image.src = logoUrl(asset);
+
+    const details = document.createElement("div");
+    details.className = "directory-details";
+
+    const name = document.createElement("strong");
+    name.textContent = asset.name;
+
+    const symbol = document.createElement("small");
+    symbol.textContent = String(asset.symbol || "").toUpperCase();
+
+    details.append(name, symbol);
+
+    const priceArea = document.createElement("div");
+    priceArea.className = "directory-price";
+
+    const price = document.createElement("strong");
+    price.textContent = formatPrice(asset.quotes?.USD?.price);
+
+    const change = document.createElement("small");
+
+    const rawPercentage = asset.quotes?.USD?.percent_change_24h;
+    const percentage = Number(rawPercentage);
+
+    if (
+      rawPercentage !== null &&
+      rawPercentage !== undefined &&
+      Number.isFinite(percentage)
+    ) {
+      change.textContent =
+        (percentage > 0 ? "+" : "") +
+        percentage.toFixed(2) +
+        "% (24h)";
+
+      change.className =
+        percentage >= 0 ? "positive" : "negative";
+    } else {
+      change.textContent = "24h change unavailable";
+      change.className = "muted";
+    }
+
+    priceArea.append(price, change);
+    row.append(image, details, priceArea);
+
+    row.addEventListener("click", function () {
+      openCryptoDetails(asset);
     });
 
-    logoChecks.set(asset.id, promise);
-    return promise;
+    row.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openCryptoDetails(asset);
+      }
+    });
+
+    return row;
   }
 
-  // BUILD ONE DIRECTORY ROW
-function createAssetRow(asset) {
-const row = document.createElement("article");
-row.className = "directory-coin";
-row.hidden = false;
-row.tabIndex = 0;
-row.setAttribute("role", "button");
-row.setAttribute(
-"aria-label",
-"View details for " + asset.name
-);
-
-const image = document.createElement("img");
-image.className = "directory-logo";
-image.alt = asset.name + " logo";
-image.loading = "lazy";
-image.decoding = "async";
-
-const details = document.createElement("div");
-details.className = "directory-details";
-
-const name = document.createElement("strong");
-name.textContent = asset.name;
-
-const symbol = document.createElement("small");
-symbol.textContent = String(asset.symbol || "").toUpperCase();
-
-details.append(name, symbol);
-
-const priceArea = document.createElement("div");
-priceArea.className = "directory-price";
-
-const price = document.createElement("strong");
-price.textContent = formatPrice(asset.quotes?.USD?.price);
-
-const change = document.createElement("small");
-const percentage = Number(
-  asset.quotes?.USD?.percent_change_24h
-);
-
-if (Number.isFinite(percentage)) {
-  change.textContent =
-    (percentage > 0 ? "+" : "") +
-    percentage.toFixed(2) +
-    "% (24h)";
-
-  change.className =
-    percentage >= 0 ? "positive" : "negative";
-} else {
-  change.textContent = "24h change unavailable";
-}
-
-priceArea.append(price, change);
-row.append(image, details, priceArea);
-
-image.onload = function () {
-  if (image.naturalWidth <= 0) {
-    image.style.display = "none";
-  }
-  updateCount();
-};
-
-image.onerror = function () {
-  image.style.display = "none";
-  updateCount();
-};
-
-image.src = logoUrl(asset);
-
-function openDetails() {
-  openCryptoDetails(asset);
-}
-
-row.addEventListener("click", openDetails);
-
-row.addEventListener("keydown", function (event) {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    openDetails();
-  }
-});
-
-return row;
-
-}
-
+  // UPDATE THE NUMBER OF VISIBLE COINS
   function updateCount() {
-    if (!countLabel) return;
+    if (!countLabel || !directory) return;
 
-    const displayed = directory
-      ? directory.querySelectorAll(".directory-coin:not([hidden])").length
-      : 0;
+    const displayed = directory.querySelectorAll(
+      ".directory-coin:not([hidden])"
+    ).length;
 
-    countLabel.textContent =
-      displayed + " shown";
+    countLabel.textContent = displayed + " shown";
   }
 
-  // SORT THE RESULTS
+  // SORT COINS
   function sortAssets(assets) {
-    const sortMode = sortSelect ? sortSelect.value : "rank";
+    const mode = sortSelect ? sortSelect.value : "rank";
 
     return assets.slice().sort(function (a, b) {
-      if (sortMode === "name") {
+      if (mode === "name") {
         return a.name.localeCompare(b.name);
       }
 
-      if (sortMode === "price") {
+      if (mode === "price") {
         return (
           Number(b.quotes?.USD?.price || 0) -
           Number(a.quotes?.USD?.price || 0)
@@ -288,7 +461,7 @@ return row;
     });
   }
 
-  // DISPLAY A PAGE OF MATCHING ASSETS
+  // RENDER THE COIN DIRECTORY
   function renderAssets(reset) {
     if (!directory) return;
 
@@ -298,7 +471,11 @@ return row;
     }
 
     const start = displayedCount;
-    const end = Math.min(start + PAGE_SIZE, visibleAssets.length);
+    const end = Math.min(
+      start + PAGE_SIZE,
+      visibleAssets.length
+    );
+
     const batch = visibleAssets.slice(start, end);
 
     batch.forEach(function (asset) {
@@ -308,20 +485,26 @@ return row;
     displayedCount = end;
 
     if (loadMoreButton) {
-      loadMoreButton.hidden = displayedCount >= visibleAssets.length;
+      loadMoreButton.hidden =
+        displayedCount >= visibleAssets.length;
+
+      loadMoreButton.disabled = false;
+      loadMoreButton.textContent = "Load more assets";
     }
 
     if (batch.length === 0 && displayedCount === 0) {
       const empty = document.createElement("p");
+
       empty.className = "muted";
       empty.textContent = "No matching assets found.";
+
       directory.appendChild(empty);
     }
 
     updateCount();
   }
 
-  // SEARCH BY COIN NAME OR SYMBOL
+  // SEARCH COINS BY NAME OR SYMBOL
   function filterAssets() {
     const query = searchInput
       ? searchInput.value.trim().toLowerCase()
@@ -329,7 +512,7 @@ return row;
 
     const filtered = allAssets.filter(function (asset) {
       return (
-        asset.name.toLowerCase().includes(query) ||
+        String(asset.name || "").toLowerCase().includes(query) ||
         String(asset.symbol || "").toLowerCase().includes(query)
       );
     });
@@ -338,8 +521,8 @@ return row;
 
     if (statusLabel) {
       statusLabel.textContent =
-        "Searching " + allAssets.length.toLocaleString() +
-        " cryptocurrency listings. Only verified, loadable logos are displayed.";
+        allAssets.length.toLocaleString() +
+        " cryptocurrency listings available. Tap a coin to view details.";
     }
 
     renderAssets(true);
@@ -353,6 +536,7 @@ return row;
     sortSelect.addEventListener("change", filterAssets);
   }
 
+  // LOAD MORE COINS
   if (loadMoreButton) {
     loadMoreButton.addEventListener("click", function () {
       if (loadingMore) return;
@@ -364,84 +548,89 @@ return row;
       renderAssets(false);
 
       loadingMore = false;
-      loadMoreButton.disabled = false;
-      loadMoreButton.textContent = "Load more assets";
+
+      if (loadMoreButton) {
+        loadMoreButton.disabled = false;
+        loadMoreButton.textContent = "Load more assets";
+      }
     });
   }
 
-  // LOAD MARKET DATA
+  // LOAD CRYPTOCURRENCY MARKET DATA
   async function loadDirectory() {
     if (!directory) return;
 
     try {
       if (statusLabel) {
-        statusLabel.textContent = "Loading cryptocurrency listings...";
+        statusLabel.textContent =
+          "Loading cryptocurrency listings...";
       }
 
-      const response = await fetch(
-        "https://oinance-crypto-api.emmycryptolord.workers.dev/coins?page=1"
-      );
+      const response = await fetch(API_URL);
 
       if (!response.ok) {
-        throw new Error("API error: " + response.status);
+        throw new Error("Market data error: " + response.status);
       }
 
       const data = await response.json();
 
       if (!Array.isArray(data)) {
-        throw new Error("Invalid API data.");
+        throw new Error("The market API did not return a coin list.");
       }
 
       allAssets = data.map(function (asset) {
         return {
           id: asset.id,
-          name: asset.name,
-          symbol: asset.symbol,
+          name: asset.name || "Unknown coin",
+          symbol: asset.symbol || "",
           image: asset.image || "",
           rank: Number(asset.market_cap_rank || 999999),
+
+          marketCap: asset.market_cap,
+          high24h: asset.high_24h,
+          low24h: asset.low_24h,
+          volume24h: asset.total_volume,
+
           quotes: {
             USD: {
               price: asset.current_price,
-              percent_change_24h: asset.price_change_percentage_24h
+              percent_change_24h:
+                asset.price_change_percentage_24h
             }
           }
         };
       });
 
-      if (statusLabel) {
-        statusLabel.textContent =
-          allAssets.length.toLocaleString() +
-          " listings received. Checking logo availability...";
-      }
-
       filterAssets();
 
     } catch (error) {
-      console.error("OINANCE asset directory:", error);
+      console.error("OINANCE market data:", error);
 
       if (statusLabel) {
         statusLabel.textContent =
-          "We could not load live listings. Check your internet connection and try again later.";
+          "Live cryptocurrency data is temporarily unavailable.";
       }
 
-      if (directory) {
-        directory.replaceChildren();
+      directory.replaceChildren();
 
-        const message = document.createElement("p");
-        message.className = "muted";
-        message.textContent =
-          "The cryptocurrency data service is unavailable right now. Your existing wallet demo still works.";
+      const message = document.createElement("p");
+      message.className = "muted";
+      message.textContent =
+        "We could not load the coin list. Please check your internet connection and try again later.";
 
-        directory.appendChild(message);
-      }
+      directory.appendChild(message);
 
       if (countLabel) {
         countLabel.textContent = "Unavailable";
       }
+
+      if (loadMoreButton) {
+        loadMoreButton.hidden = true;
+      }
     }
   }
- 
-  // UPDATE DASHBOARD MARKET PRICES
+
+  // UPDATE THE FOUR DASHBOARD MARKET CARDS
   async function updateDashboardPrices() {
     const dashboardCoins = [
       { id: "bitcoin", symbol: "btc" },
@@ -451,15 +640,15 @@ return row;
     ];
 
     try {
-      const response = await fetch(
-        "https://oinance-crypto-api.emmycryptolord.workers.dev/coins?page=1"
-      );
+      const response = await fetch(API_URL);
 
       if (!response.ok) {
-        throw new Error("Market data unavailable");
+        throw new Error("Dashboard market data unavailable.");
       }
 
       const coins = await response.json();
+
+      if (!Array.isArray(coins)) return;
 
       dashboardCoins.forEach(function (target) {
         const coin = coins.find(function (item) {
@@ -468,41 +657,56 @@ return row;
 
         if (!coin) return;
 
-        const card = document.querySelector(
-          '.stat-card .crypto-icon[src*="/' + target.symbol + '@2x.png"]'
+        const icon = document.querySelector(
+          '.stat-card .crypto-icon[src*="/' +
+            target.symbol +
+            '@2x.png"]'
         );
+
+        if (!icon) return;
+
+        const card = icon.closest(".stat-card");
 
         if (!card) return;
 
-        const details = card.parentElement;
-        const priceElement = details.querySelector("strong");
+        const priceElement = card.querySelector("div strong");
 
         if (priceElement) {
-          priceElement.textContent = formatPrice(coin.current_price);
+          priceElement.textContent = formatPrice(
+            coin.current_price
+          );
         }
 
-        const changeElement = card
-          .closest(".stat-card")
-          .querySelector(".positive");
+        const changeElement = card.querySelector(
+          ".positive, .negative"
+        );
 
         if (changeElement) {
-          const change = Number(coin.price_change_percentage_24h);
+          const rawChange = coin.price_change_percentage_24h;
+          const percentage = Number(rawChange);
 
-          if (Number.isFinite(change)) {
+          if (
+            rawChange !== null &&
+            rawChange !== undefined &&
+            Number.isFinite(percentage)
+          ) {
             changeElement.textContent =
-              (change > 0 ? "+" : "") + change.toFixed(2) + "%";
+              (percentage > 0 ? "+" : "") +
+              percentage.toFixed(2) +
+              "%";
 
             changeElement.className =
-              change >= 0 ? "positive" : "negative";
+              percentage >= 0 ? "positive" : "negative";
           }
         }
       });
+
     } catch (error) {
       console.error("OINANCE dashboard prices:", error);
     }
   }
 
+  // START THE APP
   updateDashboardPrices();
-  
   loadDirectory();
 });
