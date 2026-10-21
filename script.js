@@ -172,70 +172,90 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // BUILD ONE DIRECTORY ROW
-  function createAssetRow(asset) {
-    const row = document.createElement("article");
-    row.className = "directory-coin";
-    row.hidden = false;
+function createAssetRow(asset) {
+const row = document.createElement("article");
+row.className = "directory-coin";
+row.hidden = false;
+row.tabIndex = 0;
+row.setAttribute("role", "button");
+row.setAttribute(
+"aria-label",
+"View details for " + asset.name
+);
 
-    const image = document.createElement("img");
-    image.className = "directory-logo";
-    image.alt = asset.name + " logo";
-    image.loading = "lazy";
-    image.decoding = "async";
+const image = document.createElement("img");
+image.className = "directory-logo";
+image.alt = asset.name + " logo";
+image.loading = "lazy";
+image.decoding = "async";
 
-    const details = document.createElement("div");
-    details.className = "directory-details";
+const details = document.createElement("div");
+details.className = "directory-details";
 
-    const name = document.createElement("strong");
-    name.textContent = asset.name;
+const name = document.createElement("strong");
+name.textContent = asset.name;
 
-    const symbol = document.createElement("small");
-    symbol.textContent = String(asset.symbol || "").toUpperCase();
+const symbol = document.createElement("small");
+symbol.textContent = String(asset.symbol || "").toUpperCase();
 
-    details.append(name, symbol);
+details.append(name, symbol);
 
-    const priceArea = document.createElement("div");
-    priceArea.className = "directory-price";
+const priceArea = document.createElement("div");
+priceArea.className = "directory-price";
 
-    const price = document.createElement("strong");
-    price.textContent = formatPrice(asset.quotes?.USD?.price);
+const price = document.createElement("strong");
+price.textContent = formatPrice(asset.quotes?.USD?.price);
 
-    const change = document.createElement("small");
-    const percentage = Number(
-      asset.quotes?.USD?.percent_change_24h
-    );
+const change = document.createElement("small");
+const percentage = Number(
+  asset.quotes?.USD?.percent_change_24h
+);
 
-    if (Number.isFinite(percentage)) {
-      change.textContent =
-        (percentage > 0 ? "+" : "") +
-        percentage.toFixed(2) +
-        "% (24h)";
+if (Number.isFinite(percentage)) {
+  change.textContent =
+    (percentage > 0 ? "+" : "") +
+    percentage.toFixed(2) +
+    "% (24h)";
 
-      change.className =
-        percentage >= 0 ? "positive" : "negative";
-    } else {
-      change.textContent = "24h change unavailable";
-    }
+  change.className =
+    percentage >= 0 ? "positive" : "negative";
+} else {
+  change.textContent = "24h change unavailable";
+}
 
-    priceArea.append(price, change);
-    row.append(image, details, priceArea);
+priceArea.append(price, change);
+row.append(image, details, priceArea);
 
-        image.onload = function () {
-      if (image.naturalWidth <= 0) {
-        image.style.display = "none";
-      }
-      updateCount();
-    };
-
-    image.onerror = function () {
-      image.style.display = "none";
-      updateCount();
-    };
-
-    image.src = logoUrl(asset);
-
-    return row;
+image.onload = function () {
+  if (image.naturalWidth <= 0) {
+    image.style.display = "none";
   }
+  updateCount();
+};
+
+image.onerror = function () {
+  image.style.display = "none";
+  updateCount();
+};
+
+image.src = logoUrl(asset);
+
+function openDetails() {
+  openCryptoDetails(asset);
+}
+
+row.addEventListener("click", openDetails);
+
+row.addEventListener("keydown", function (event) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openDetails();
+  }
+});
+
+return row;
+
+}
 
   function updateCount() {
     if (!countLabel) return;
