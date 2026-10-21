@@ -2,255 +2,300 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#080b10">
-  <meta name="description" content="OINANCE Wallet — your digital asset dashboard.">
   <title>OINANCE Wallet</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app">
+<div class="app">
 
-    <aside class="sidebar">
-      <a class="brand" href="#" aria-label="OINANCE Wallet home">
-        <img class="brand-symbol"
-             src="https://oinancelink.github.io/OINANCE-TECHNOLOGY1/IMG_20260916_192545.jpg"
-             alt="OINANCE official logo">
-        <span>OINANCE <small>WALLET</small></span>
-      </a>
+  <aside class="sidebar">
+    <a class="brand" href="#home">
+      <img class="brand-symbol"
+        src="https://oinancelink.github.io/OINANCE-TECHNOLOGY1/IMG_20260916_192545.jpg"
+        alt="OINANCE logo">
+      <span>OINANCE <small>WALLET</small></span>
+    </a>
 
-      <nav class="navigation">
-        <a class="nav-link active" href="#home">▦ <span>Overview</span></a>
-        <a class="nav-link" href="#assets">◈ <span>My Assets</span></a>
-        <a class="nav-link" href="#send">↗ <span>Send</span></a>
-        <a class="nav-link" href="#receive">↙ <span>Receive</span></a>
-        <a class="nav-link" href="#swap">⇄ <span>Swap</span></a>
-        <a class="nav-link" href="#activity">◷ <span>Activity</span></a>
-      </nav>
+    <nav class="navigation">
+      <a class="nav-link active" href="#home">▦ <span>Overview</span></a>
+      <a class="nav-link" href="#assets">◈ <span>My Assets</span></a>
+      <a class="nav-link" href="#send">↗ <span>Send</span></a>
+      <a class="nav-link" href="#receive">↙ <span>Receive</span></a>
+      <a class="nav-link" href="#swap">⇄ <span>Swap</span></a>
+      <a class="nav-link" href="#activity">◷ <span>Activity</span></a>
+    </nav>
 
-      <div class="sidebar-bottom">
-        <div class="network-status">
-          <span class="status-dot"></span>
-          Demo mode active
-        </div>
-        <a class="nav-link" href="#security">⚙ <span>Security</span></a>
+    <div class="sidebar-bottom">
+      <div class="network-status">
+        <span class="status-dot"></span> Demo mode active
       </div>
-    </aside>
+      <a class="nav-link" href="#security">⚙ <span>Security</span></a>
+    </div>
+  </aside>
 
-    <main class="main-content" id="home">
-      <header class="topbar">
-        <div class="mobile-brand">
-          <img class="brand-symbol"
-               src="https://oinancelink.github.io/OINANCE-TECHNOLOGY1/IMG_20260916_192545.jpg"
-               alt="OINANCE official logo">
-          <strong>OINANCE Wallet</strong>
+  <main class="main-content" id="home">
+
+    <header class="topbar">
+      <div class="mobile-brand">
+        <img class="brand-symbol"
+          src="https://oinancelink.github.io/OINANCE-TECHNOLOGY1/IMG_20260916_192545.jpg"
+          alt="OINANCE logo">
+        <strong>OINANCE Wallet</strong>
+      </div>
+      <div class="topbar-label">YOUR DIGITAL ASSETS</div>
+      <div class="demo-badge"><span class="status-dot"></span> DEMO</div>
+    </header>
+
+    <section class="welcome-section">
+      <div>
+        <p class="eyebrow">YOUR FINANCIAL WORLD</p>
+        <h1>Welcome to <span>OINANCE.</span></h1>
+        <p class="muted">One wallet. Multiple networks. More possibilities.</p>
+      </div>
+    </section>
+
+    <section class="balance-card">
+      <div class="balance-top">
+        <span>Total portfolio balance</span>
+        <span class="demo-label">SAMPLE DATA</span>
+      </div>
+      <h2>$24,680.50</h2>
+      <p class="positive">▲ 4.82% <span class="muted">sample change today</span></p>
+      <div class="balance-actions">
+        <a class="button button-primary" href="#send">↗ Send</a>
+        <a class="button button-light" href="#receive">↙ Receive</a>
+        <a class="button button-outline" href="#swap">⇄ Swap</a>
+      </div>
+    </section>
+
+    <section class="quick-stats">
+
+      <article class="stat-card">
+        <img class="crypto-icon"
+          src="https://assets.coincap.io/assets/icons/btc@2x.png"
+          alt="Bitcoin logo">
+        <div><p class="muted">Bitcoin</p><strong>$12,450.00</strong></div>
+        <span class="positive">+2.4%</span>
+      </article>
+
+      <article class="stat-card">
+        <img class="crypto-icon"
+          src="https://assets.coincap.io/assets/icons/eth@2x.png"
+          alt="Ethereum logo">
+        <div><p class="muted">Ethereum</p><strong>$6,820.25</strong></div>
+        <span class="positive">+3.1%</span>
+      </article>
+
+      <article class="stat-card">
+        <img class="crypto-icon"
+          src="https://assets.coincap.io/assets/icons/bnb@2x.png"
+          alt="BNB logo">
+        <div><p class="muted">BNB</p><strong>$3,210.15</strong></div>
+        <span class="positive">+1.8%</span>
+      </article>
+
+      <article class="stat-card">
+        <img class="crypto-icon"
+          src="https://assets.coincap.io/assets/icons/sol@2x.png"
+          alt="Solana logo">
+        <div><p class="muted">Solana</p><strong>$2,200.10</strong></div>
+        <span class="positive">+5.2%</span>
+      </article>
+
+    </section>
+
+    <section class="content-grid">
+
+      <article class="panel" id="assets">
+        <div class="panel-heading">
+          <div>
+            <h2>Your assets</h2>
+            <p class="muted">Multi-chain portfolio preview</p>
+          </div>
+          <span class="pill">4 assets</span>
         </div>
 
-        <div class="topbar-label">YOUR DIGITAL ASSETS</div>
-
-        <div class="demo-badge">
-          <span class="status-dot"></span> DEMO
+        <div class="asset-row">
+          <img class="crypto-icon"
+            src="https://assets.coincap.io/assets/icons/btc@2x.png"
+            alt="Bitcoin">
+          <div class="asset-name">
+            <strong>Bitcoin</strong>
+            <small>BTC · Bitcoin Network</small>
+          </div>
+          <div class="asset-value">
+            <strong>0.125 BTC</strong>
+            <small>$12,450.00</small>
+          </div>
         </div>
-      </header>
 
-      <section class="welcome-section">
+        <div class="asset-row">
+          <img class="crypto-icon"
+            src="https://assets.coincap.io/assets/icons/eth@2x.png"
+            alt="Ethereum">
+          <div class="asset-name">
+            <strong>Ethereum</strong>
+            <small>ETH · Ethereum Network</small>
+          </div>
+          <div class="asset-value">
+            <strong>2.10 ETH</strong>
+            <small>$6,820.25</small>
+          </div>
+        </div>
+
+        <div class="asset-row">
+          <img class="crypto-icon"
+            src="https://assets.coincap.io/assets/icons/bnb@2x.png"
+            alt="BNB">
+          <div class="asset-name">
+            <strong>BNB</strong>
+            <small>BNB · BNB Chain</small>
+          </div>
+          <div class="asset-value">
+            <strong>5.20 BNB</strong>
+            <small>$3,210.15</small>
+          </div>
+        </div>
+
+        <div class="asset-row">
+          <img class="crypto-icon"
+            src="https://assets.coincap.io/assets/icons/sol@2x.png"
+            alt="Solana">
+          <div class="asset-name">
+            <strong>Solana</strong>
+            <small>SOL · Solana Network</small>
+          </div>
+          <div class="asset-value">
+            <strong>15.00 SOL</strong>
+            <small>$2,200.10</small>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel" id="activity">
+        <div class="panel-heading">
+          <div>
+            <h2>Recent activity</h2>
+            <p class="muted">Example transactions only</p>
+          </div>
+        </div>
+
+        <div class="activity-row">
+          <div class="activity-icon">↙</div>
+          <div class="activity-name">
+            <strong>Received Bitcoin</strong>
+            <small>Yesterday · Demo</small>
+          </div>
+          <strong class="positive">+0.025 BTC</strong>
+        </div>
+
+        <div class="activity-row">
+          <div class="activity-icon">↗</div>
+          <div class="activity-name">
+            <strong>Sent Ethereum</strong>
+            <small>Oct 18 · Demo</small>
+          </div>
+          <strong>-0.10 ETH</strong>
+        </div>
+
+        <div class="activity-row">
+          <div class="activity-icon">⇄</div>
+          <div class="activity-name">
+            <strong>Token swap</strong>
+            <small>Oct 16 · Demo</small>
+          </div>
+          <strong>Demo</strong>
+        </div>
+
+        <div class="notice">
+          <strong>Demo environment</strong>
+          <p>These balances are examples. No real crypto is connected.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel action-panel" id="send">
+      <div class="panel-heading">
         <div>
-          <p class="eyebrow">YOUR FINANCIAL WORLD</p>
-          <h1>Welcome to <span>OINANCE.</span></h1>
-          <p class="muted">One wallet. Multiple networks. More possibilities.</p>
+          <h2>Send assets</h2>
+          <p class="muted">Demonstration only. Nothing will be sent.</p>
         </div>
-      </section>
+      </div>
+      <form id="sendForm">
+        <label for="sendNetwork">Network</label>
+        <select id="sendNetwork">
+          <option>Bitcoin</option>
+          <option>Ethereum</option>
+          <option>BNB Chain</option>
+          <option>Solana</option>
+        </select>
+        <label for="sendAddress">Recipient label</label>
+        <input id="sendAddress" type="text" placeholder="Demo only">
+        <label for="sendAmount">Amount</label>
+        <input id="sendAmount" type="number" min="0" step="any" placeholder="0.00">
+        <button class="button button-primary" type="submit">Preview transfer</button>
+        <p id="sendMessage" class="form-message" role="status"></p>
+      </form>
+    </section>
 
-      <section class="balance-card">
-        <div class="balance-top">
-          <span>Total portfolio balance</span>
-          <span class="demo-label">SAMPLE DATA</span>
+    <section class="panel action-panel" id="receive">
+      <div class="panel-heading">
+        <div>
+          <h2>Receive assets</h2>
+          <p class="muted">Real wallet addresses are not generated.</p>
         </div>
+      </div>
+      <button class="button button-outline" id="receiveButton" type="button">
+        View demo notice
+      </button>
+      <p id="receiveMessage" class="form-message" role="status"></p>
+    </section>
 
-        <h2 id="totalBalance">$24,680.50</h2>
-        <p class="positive">▲ 4.82% <span class="muted">sample change today</span></p>
-
-        <div class="balance-actions">
-          <a class="button button-primary" href="#send">↗ Send</a>
-          <a class="button button-light" href="#receive">↙ Receive</a>
-          <a class="button button-outline" href="#swap">⇄ Swap</a>
+    <section class="panel action-panel" id="swap">
+      <div class="panel-heading">
+        <div>
+          <h2>Swap assets</h2>
+          <p class="muted">Blockchain services are not connected.</p>
         </div>
-      </section>
+      </div>
+      <button class="button button-outline" id="swapButton" type="button">
+        Preview swap feature
+      </button>
+      <p id="swapMessage" class="form-message" role="status"></p>
+    </section>
 
-      <section class="quick-stats">
-        <article class="stat-card">
-          <span class="stat-icon">₿</span>
-          <div><p class="muted">Bitcoin</p><strong>$12,450.00</strong></div>
-          <span class="positive">+2.4%</span>
-        </article>
-
-        <article class="stat-card">
-          <span class="stat-icon">◆</span>
-          <div><p class="muted">Ethereum</p><strong>$6,820.25</strong></div>
-          <span class="positive">+3.1%</span>
-        </article>
-
-        <article class="stat-card">
-          <span class="stat-icon">◈</span>
-          <div><p class="muted">BNB</p><strong>$3,210.15</strong></div>
-          <span class="positive">+1.8%</span>
-        </article>
-
-        <article class="stat-card">
-          <span class="stat-icon">◎</span>
-          <div><p class="muted">Solana</p><strong>$2,200.10</strong></div>
-          <span class="positive">+5.2%</span>
-        </article>
-      </section>
-
-      <section class="content-grid">
-        <article class="panel" id="assets">
-          <div class="panel-heading">
-            <div>
-              <h2>Your assets</h2>
-              <p class="muted">Multi-chain portfolio preview</p>
-            </div>
-            <span class="pill">4 assets</span>
-          </div>
-
-          <div class="asset-row">
-            <div class="coin coin-btc">₿</div>
-            <div class="asset-name"><strong>Bitcoin</strong><small>BTC · Bitcoin Network</small></div>
-            <div class="asset-value"><strong>0.125 BTC</strong><small>$12,450.00</small></div>
-          </div>
-
-          <div class="asset-row">
-            <div class="coin coin-eth">◆</div>
-            <div class="asset-name"><strong>Ethereum</strong><small>ETH · Ethereum Network</small></div>
-            <div class="asset-value"><strong>2.10 ETH</strong><small>$6,820.25</small></div>
-          </div>
-
-          <div class="asset-row">
-            <div class="coin coin-bnb">◈</div>
-            <div class="asset-name"><strong>BNB</strong><small>BNB · BNB Chain</small></div>
-            <div class="asset-value"><strong>5.20 BNB</strong><small>$3,210.15</small></div>
-          </div>
-
-          <div class="asset-row">
-            <div class="coin coin-sol">◎</div>
-            <div class="asset-name"><strong>Solana</strong><small>SOL · Solana Network</small></div>
-            <div class="asset-value"><strong>15.00 SOL</strong><small>$2,200.10</small></div>
-          </div>
-        </article>
-
-        <article class="panel" id="activity">
-          <div class="panel-heading">
-            <div>
-              <h2>Recent activity</h2>
-              <p class="muted">Example transactions only</p>
-            </div>
-          </div>
-
-          <div class="activity-row">
-            <div class="activity-icon">↙</div>
-            <div class="activity-name"><strong>Received Bitcoin</strong><small>Yesterday · Demo</small></div>
-            <strong class="positive">+0.025 BTC</strong>
-          </div>
-
-          <div class="activity-row">
-            <div class="activity-icon">↗</div>
-            <div class="activity-name"><strong>Sent Ethereum</strong><small>Oct 18 · Demo</small></div>
-            <strong>-0.10 ETH</strong>
-          </div>
-
-          <div class="activity-row">
-            <div class="activity-icon">⇄</div>
-            <div class="activity-name"><strong>Token swap</strong><small>Oct 16 · Demo</small></div>
-            <strong>Completed</strong>
-          </div>
-
-          <div class="notice">
-            <strong>Demo environment</strong>
-            <p>These balances and transactions are fictional examples. No real crypto is connected.</p>
-          </div>
-        </article>
-      </section>
-
-      <section class="panel action-panel" id="send">
-        <div class="panel-heading">
-          <div>
-            <h2>Send assets</h2>
-            <p class="muted">Preview the transfer form. Nothing will be sent.</p>
-          </div>
+    <section class="panel action-panel" id="security">
+      <div class="panel-heading">
+        <div>
+          <h2>Wallet security</h2>
+          <p class="muted">Security must be implemented before real funds are supported.</p>
         </div>
+      </div>
+      <ul class="security-list">
+        <li>Real wallet creation: not implemented.</li>
+        <li>Private-key protection: not implemented.</li>
+        <li>Blockchain transactions: not connected.</li>
+        <li>Security audit: required before launch.</li>
+      </ul>
+    </section>
 
-        <form id="sendForm">
-          <label for="sendNetwork">Network</label>
-          <select id="sendNetwork">
-            <option>Bitcoin</option>
-            <option>Ethereum</option>
-            <option>BNB Chain</option>
-            <option>Solana</option>
-          </select>
-
-          <label for="sendAddress">Recipient address</label>
-          <input id="sendAddress" type="text" placeholder="Demo only — do not enter a real address">
-
-          <label for="sendAmount">Amount</label>
-          <input id="sendAmount" type="number" min="0" step="any" placeholder="0.00">
-
-          <button class="button button-primary" type="submit">Preview transfer</button>
-          <p id="sendMessage" class="form-message" role="status"></p>
-        </form>
-      </section>
-
-      <section class="panel action-panel" id="receive">
-        <div class="panel-heading">
-          <div>
-            <h2>Receive assets</h2>
-            <p class="muted">Real wallet addresses are not generated in this demo.</p>
-          </div>
+    <footer class="footer">
+      <div class="about-card">
+        <img class="brand-symbol"
+          src="https://oinancelink.github.io/OINANCE-TECHNOLOGY1/IMG_20260916_192545.jpg"
+          alt="OINANCE logo">
+        <div>
+          <strong>OINANCE Wallet</strong>
+          <p>Built for a connected digital-asset future.</p>
         </div>
-        <button class="button button-outline" id="receiveButton" type="button">View demo notice</button>
-        <p id="receiveMessage" class="form-message" role="status"></p>
-      </section>
+      </div>
+      <p>© 2026 OINANCE Technology · Prototype version</p>
+    </footer>
 
-      <section class="panel action-panel" id="swap">
-        <div class="panel-heading">
-          <div>
-            <h2>Swap assets</h2>
-            <p class="muted">A future version can connect to a supported swap provider.</p>
-          </div>
-        </div>
-        <button class="button button-outline" id="swapButton" type="button">Preview swap feature</button>
-        <p id="swapMessage" class="form-message" role="status"></p>
-      </section>
-
-      <section class="panel action-panel" id="security">
-        <div class="panel-heading">
-          <div>
-            <h2>Wallet security</h2>
-            <p class="muted">Security must be engineered before real funds are supported.</p>
-          </div>
-        </div>
-        <ul class="security-list">
-          <li>Real wallet creation: not implemented.</li>
-          <li>Private-key protection: not implemented.</li>
-          <li>Blockchain transactions: not connected.</li>
-          <li>Security audit: required before launch.</li>
-        </ul>
-      </section>
-
-      <footer class="footer">
-        <div class="about-card">
-          <img class="brand-symbol"
-               src="https://oinancelink.github.io/OINANCE-TECHNOLOGY1/IMG_20260916_192545.jpg"
-               alt="OINANCE official logo">
-          <div>
-            <strong>OINANCE Wallet</strong>
-            <p>Built for a connected digital-asset future.</p>
-          </div>
-        </div>
-        <p>© 2026 OINANCE Technology · Prototype version</p>
-      </footer>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
+  </main>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
