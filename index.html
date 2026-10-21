@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b10">
+
+  <title>OINANCE Wallet</title>
+
+  <meta name="description"
+        content="OINANCE Wallet — a premium multi-chain cryptocurrency wallet interface.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <a href="#" class="brand" data-page="home">
+      <div class="brand-symbol">O</div>
+      <div>
+        <strong>OINANCE</strong>
+        <span>WALLET</span>
+      </div>
+    </a>
+
+    <div class="wallet-status">
+      <span class="status-dot"></span>
+      DEMO WALLET
+    </div>
+
+    <nav class="side-nav">
+      <button class="nav-item active" data-page="home">
+        <span>⌂</span> Overview
+      </button>
+
+      <button class="nav-item" data-page="markets">
+        <span>◈</span> Markets
+      </button>
+
+      <button class="nav-item" data-page="activity">
+        <span>↔</span> Activity
+      </button>
+
+      <button class="nav-item" data-page="send">
+        <span>↑</span> Send
+      </button>
+
+      <button class="nav-item" data-page="receive">
+        <span>↓</span> Receive
+      </button>
+
+      <button class="nav-item" data-page="swap">
+        <span>⇄</span> Swap
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="security-card">
+        <div class="security-icon">♧</div>
+        <strong>Self-custody vision</strong>
+        <p>Your keys. Your control. Security comes first.</p>
+        <span>PROTOTYPE ONLY</span>
+      </div>
+
+      <button class="nav-item" data-page="settings">
+        <span>⚙</span> Settings
+      </button>
+
+      <div class="version">OINANCE WALLET V1.0</div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div class="mobile-brand">
+        <div class="brand-symbol">O</div>
+        <strong>OINANCE</strong>
+      </div>
+
+      <div class="page-heading">
+        <span class="eyebrow">YOUR DIGITAL ASSETS</span>
+        <h1 id="page-title">Overview</h1>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="demo-badge">● DEMO</span>
+        <button class="icon-button" id="notificationsButton"
+                aria-label="Notifications">♧</button>
+      </div>
+
+    </header>
+
+    <div class="demo-warning">
+      <span>ⓘ</span>
+      <div>
+        <strong>Demonstration mode</strong>
+        <p>Sample balances and prices only. No real funds are connected.</p>
+      </div>
+    </div>
+
+    <!-- HOME PAGE -->
+    <section class="page active" id="page-home">
+
+      <div class="hero-grid">
+
+        <div class="balance-card">
+
+          <div class="balance-top">
+            <div>
+              <span class="muted-label">TOTAL PORTFOLIO VALUE</span>
+              <button class="balance-toggle" id="balanceToggle"
+                      aria-label="Hide or show balance">◉</button>
+            </div>
+
+            <span class="portfolio-label">
+              <span class="status-dot"></span> Sample portfolio
+            </span>
+          </div>
+
+          <div class="balance-amount" id="totalBalance">
+            $24,680.45
+          </div>
+
+          <div class="balance-change">
+            <span>▲ 3.42%</span>
+            <span class="change-caption">Illustrative 24h change</span>
+          </div>
+
+          <div class="balance-divider"></div>
+
+          <div class="balance-footer">
+            <div>
+              <span>Networks</span>
+              <strong>04 planned</strong>
+            </div>
+
+            <div>
+              <span>Asset types</span>
+              <strong>04 examples</strong>
+            </div>
+
+            <div>
+              <span>Wallet status</span>
+              <strong class="gold-text">Demo</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="quick-actions-card">
+          <span class="muted-label">QUICK ACTIONS</span>
+
+          <div class="quick-actions">
+
+            <button class="action-button" data-page="send">
+              <span class="action-icon">↑</span>
+              <strong>Send</strong>
+              <small>Transfer crypto</small>
+            </button>
+
+            <button class="action-button" data-page="receive">
+              <span class="action-icon">↓</span>
+              <strong>Receive</strong>
+              <small>Get crypto</small>
+            </button>
+
+            <button class="action-button" data-page="swap">
+              <span class="action-icon">⇄</span>
+              <strong>Swap</strong>
+              <small>Exchange assets</small>
+            </button>
+
+            <button class="action-button" data-page="markets">
+              <span class="action-icon">↗</span>
+              <strong>Markets</strong>
+              <small>Explore assets</small>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ASSET LIST -->
+      <section class="content-card assets-card">
+
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">YOUR PORTFOLIO</span>
+            <h2>Crypto assets</h2>
+          </div>
+
+          <button class="text-button" data-page="markets">
+            View markets →
+          </button>
+        </div>
+
+        <div class="asset-table">
+
+          <div class="asset-table-header">
+            <span>ASSET</span>
+            <span>PRICE</span>
+            <span>24H CHANGE</span>
+            <span>VALUE</span>
+          </div>
+
+          <div id="assetRows"></div>
+
+        </div>
+
+      </section>
+
+      <!-- LOWER CARDS -->
+      <div class="bottom-grid">
+
+        <section class="content-card">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">RECENT ACTIVITY</span>
+              <h2>Latest transactions</h2>
+            </div>
+
+            <button class="text-button" data-page="activity">
+              View all →
+            </button>
+          </div>
+
+          <div id="recentTransactions"></div>
+        </section>
+
+        <section class="content-card network-card">
+          <span class="eyebrow">MULTI-CHAIN VISION</span>
+          <h2>One wallet.<br>Multiple networks.</h2>
+
+          <p>
+            OINANCE Wallet is being designed to support multiple
+            blockchain networks through a unified interface.
+          </p>
+
+          <div class="network-pills">
+            <span>₿ Bitcoin</span>
+            <span>Ξ Ethereum</span>
+            <span>◆ BNB Chain</span>
+            <span>◎ Solana</span>
+          </div>
+
+          <small>Network integrations are not active in this demo.</small>
+        </section>
+
+      </div>
+
+    </section>
+
+    <!-- MARKETS PAGE -->
+    <section class="page" id="page-markets">
+
+      <div class="page-intro">
+        <span class="eyebrow">CRYPTOCURRENCY EXPLORER</span>
+        <h2>Explore the markets</h2>
+        <p>Illustrative asset prices. Live market data is not connected.</p>
+      </div>
+
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="assetSearch" type="search"
+               placeholder="Search Bitcoin, Ethereum, BTC..."
+               autocomplete="off">
+      </div>
+
+      <div class="content-card">
+        <div class="asset-table">
+
+          <div class="asset-table-header">
+            <span>ASSET</span>
+            <span>PRICE</span>
+            <span>24H CHANGE</span>
+            <span>NETWORK</span>
+          </div>
+
+          <div id="marketRows"></div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ACTIVITY PAGE -->
+    <section class="page" id="page-activity">
+
+      <div class="page-intro">
+        <span class="eyebrow">TRANSACTION RECORDS</span>
+        <h2>Activity</h2>
+        <p>Sample transaction records for interface testing.</p>
+      </div>
+
+      <div class="content-card">
+        <div id="allTransactions"></div>
+      </div>
+
+    </section>
+
+    <!-- SEND PAGE -->
+    <section class="page" id="page-send">
+
+      <div class="page-intro">
+        <span class="eyebrow">OUTGOING TRANSFERS</span>
+        <h2>Send crypto</h2>
+        <p>This demonstration does not broadcast blockchain transactions.</p>
+      </div>
+
+      <div class="form-card">
+
+        <div class="form-notice">
+          DEMO MODE — NO REAL CRYPTO WILL BE SENT.
+        </div>
+
+        <form id="sendForm">
+
+          <label for="sendAsset">Select asset</label>
+          <select id="sendAsset" required>
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="ETH">Ethereum (ETH)</option>
+            <option value="BNB">BNB</option>
+            <option value="SOL">Solana (SOL)</option>
+          </select>
+
+          <label for="sendAddress">Recipient address</label>
+          <input id="sendAddress" type="text"
+                 placeholder="Enter a test address"
+                 maxlength="150" required>
+
+          <label for="sendAmount">Amount</label>
+          <input id="sendAmount" type="number"
+                 placeholder="0.00" min="0.00000001"
+                 step="any" required>
+
+          <div class="form-help">
+            Do not enter real wallet details into this prototype.
+          </div>
+
+          <button class="primary-button" type="submit">
+            Preview demonstration
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+    <!-- RECEIVE PAGE -->
+    <section class="page" id="page-receive">
+
+      <div class="page-intro">
+        <span class="eyebrow">INCOMING TRANSFERS</span>
+        <h2>Receive crypto</h2>
+        <p>Real wallet addresses have not been generated.</p>
+      </div>
+
+      <div class="form-card receive-card">
+
+        <div class="demo-wallet-icon">O</div>
+
+        <h3>Receive cryptocurrency</h3>
+
+        <div class="form-notice">
+          SAMPLE INTERFACE — NOT A REAL DEPOSIT ADDRESS.
+        </div>
+
+        <label for="receiveAsset">Select asset</label>
+
+        <select id="receiveAsset">
+          <option value="BTC">Bitcoin (BTC)</option>
+          <option value="ETH">Ethereum (ETH)</option>
+          <option value="BNB">BNB Chain (BNB)</option>
+          <option value="SOL">Solana (SOL)</option>
+        </select>
+
+        <div class="sample-address" id="sampleAddress">
+          Real wallet address not available
+        </div>
+
+        <button class="secondary-button" id="copyAddressButton">
+          Copy demonstration text
+        </button>
+
+        <p class="form-help">
+          This text cannot receive cryptocurrency. Do not send funds to it.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- SWAP PAGE -->
+    <section class="page" id="page-swap">
+
+      <div class="page-intro">
+        <span class="eyebrow">ASSET EXCHANGE</span>
+        <h2>Swap crypto</h2>
+        <p>Swap functionality will require a real provider and integration.</p>
+      </div>
+
+      <div class="form-card">
+
+        <div class="form-notice">
+          DEMONSTRATION ONLY — NO EXCHANGE WILL TAKE PLACE.
+        </div>
+
+        <label for="swapFrom">You pay</label>
+
+        <div class="swap-row">
+          <input id="swapAmount" type="number" min="0"
+                 step="any" placeholder="0.00">
+
+          <select id="swapFrom">
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="BNB">BNB</option>
+            <option value="SOL">SOL</option>
+          </select>
+        </div>
+
+        <button class="swap-direction" id="reverseSwap"
+                aria-label="Reverse swap direction">⇅</button>
+
+        <label for="swapTo">You receive</label>
+
+        <div class="swap-row">
+          <input id="swapOutput" type="text"
+                 placeholder="Estimated amount" readonly>
+
+          <select id="swapTo">
+            <option value="ETH">ETH</option>
+            <option value="BTC">BTC</option>
+            <option value="BNB">BNB</option>
+            <option value="SOL">SOL</option>
+          </select>
+        </div>
+
+        <div class="form-help">
+          Estimates use demonstration prices and exclude fees.
+        </div>
+
+        <button class="primary-button" id="previewSwap">
+          Preview demonstration
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- SETTINGS PAGE -->
+    <section class="page" id="page-settings">
+
+      <div class="page-intro">
+        <span class="eyebrow">PREFERENCES & SECURITY</span>
+        <h2>Settings</h2>
+        <p>Manage the demonstration interface.</p>
+      </div>
+
+      <div class="content-card settings-card">
+
+        <div class="settings-row">
+          <div>
+            <strong>Wallet type</strong>
+            <p>Planned self-custody architecture</p>
+          </div>
+          <span class="setting-value">Planned</span>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <strong>Blockchain connections</strong>
+            <p>Bitcoin, Ethereum, BNB Chain, Solana</p>
+          </div>
+          <span class="setting-value">Offline</span>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <strong>Recovery phrase</strong>
+            <p>Real wallet recovery is not implemented.</p>
+          </div>
+          <span class="setting-value">Not available</span>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <strong>Market data</strong>
+            <p>Prices shown are examples.</p>
+          </div>
+          <span class="setting-value">Demo</span>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <strong>Privacy</strong>
+            <p>No real wallet credentials should be entered.</p>
+          </div>
+          <span class="setting-value">Prototype</span>
+        </div>
+
+      </div>
+
+      <div class="content-card about-card">
+        <div class="brand-symbol">O</div>
+        <h2>OINANCE WALLET</h2>
+        <p>
+          Building toward a premium, multi-chain self-custody
+          wallet experience.
+        </p>
+        <span>VERSION 1.0.0 · PROTOTYPE</span>
+      </div>
+
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 OINANCE TECHNOLOGY</span>
+      <span>DEMONSTRATION VERSION · NOT FOR REAL FUNDS</span>
+    </footer>
+
+  </main>
+
+</div>
+
+<!-- MOBILE BOTTOM NAVIGATION -->
+<nav class="mobile-nav">
+
+  <button class="mobile-nav-item active" data-page="home">
+    <span>⌂</span><small>Home</small>
+  </button>
+
+  <button class="mobile-nav-item" data-page="markets">
+    <span>◈</span><small>Markets</small>
+  </button>
+
+  <button class="mobile-nav-item" data-page="activity">
+    <span>↔</span><small>Activity</small>
+  </button>
+
+  <button class="mobile-nav-item" data-page="settings">
+    <span>⚙</span><small>Settings</small>
+  </button>
+
+</nav>
+
+<!-- NOTIFICATION / CONFIRMATION MODAL -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+
+  <div class="modal-card" role="dialog"
+       aria-modal="true" aria-labelledby="modalTitle">
+
+    <button class="modal-close" id="modalClose"
+            aria-label="Close dialog">×</button>
+
+    <div class="modal-symbol">O</div>
+
+    <h2 id="modalTitle">OINANCE Wallet</h2>
+
+    <p id="modalMessage"></p>
+
+    <button class="primary-button" id="modalOkay">Understood</button>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
