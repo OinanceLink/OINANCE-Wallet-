@@ -878,3 +878,127 @@ h1 span {
     min-width: 36px;
   }
 }
+
+/* OINANCE CRYPTOCURRENCY DIRECTORY */
+
+.asset-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.asset-search input,
+.asset-search select {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px;
+  color: var(--text);
+  background: #0b1017;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+}
+
+.asset-search input:focus,
+.asset-search select:focus {
+  border-color: var(--gold);
+}
+
+.asset-directory-info {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.asset-directory {
+  display: grid;
+  gap: 0;
+}
+
+.directory-coin {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.directory-coin[hidden] {
+  display: none !important;
+}
+
+.directory-logo {
+  width: 39px;
+  height: 39px;
+  min-width: 39px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  padding: 2px;
+}
+
+.directory-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.directory-details strong {
+  display: block;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.directory-details small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.directory-price {
+  text-align: right;
+  min-width: 95px;
+}
+
+.directory-price strong {
+  display: block;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.directory-price small {
+  font-size: 10px;
+}
+
+.data-attribution {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.data-attribution a {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+#loadMoreAssets {
+  width: 100%;
+  margin-top: 18px;
+}
+
+@media (max-width: 600px) {
+  .asset-search {
+    grid-template-columns: 1fr;
+  }
+
+  .directory-logo {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+  }
+
+  .directory-price {
+    min-width: 80px;
+  }
+}
