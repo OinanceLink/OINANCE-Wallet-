@@ -1,14 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b10">
-  <meta name="description" content="OINANCE Wallet — explore digital assets in one place.">
-  <title>OINANCE Wallet</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b10">
+<meta name="description" content="OINANCE Wallet — explore digital assets in one place.">
+<title>OINANCE Wallet</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* OINANCE WALLET SETUP SCREENS */
+.setup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #080b10;
+  color: #f7f8fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+}
+.setup-overlay[hidden] { display: none !important; }
+.setup-box {
+  width: 100%;
+  max-width: 470px;
+  margin: auto;
+}
+.setup-brand {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.setup-brand img {
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+.setup-brand h1 {
+  margin: 0;
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+.setup-brand p {
+  margin: 7px 0 0;
+  color: #9ca3af;
+  font-size: 13px;
+}
+.setup-card {
+  background: #111722;
+  border: 1px solid #293241;
+  border-radius: 22px;
+  padding: 25px;
+}
+.setup-card h2 {
+  font-size: 23px;
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+.setup-card > p {
+  color: #aab3c1;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.setup-actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+.setup-button {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #343e4f;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #1a2331;
+  color: #fff;
+}
+.setup-button.primary {
+  background: #e7bd65;
+  border-color: #e7bd65;
+  color: #111;
+}
+.setup-button:active { transform: scale(.99); }
+.setup-note {
+  margin-top: 18px;
+  padding: 13px;
+  border-radius: 10px;
+  background: #201e17;
+  border: 1px solid #4b4028;
+  color: #e8d5a8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.setup-step {
+  color: #e7bd65 !important;
+  font-size: 12px !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+.setup-list {
+  padding-left: 20px;
+  color: #cbd2dd;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.setup-field {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0 16px;
+  background: #090e16;
+  color: white;
+  border: 1px solid #343e4f;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 17px;
+}
+.setup-message {
+  color: #e7bd65;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.setup-back {
+  background: none;
+  border: 0;
+  color: #c2cad6;
+  padding: 12px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+.setup-footer {
+  text-align: center;
+  color: #727e90;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 18px;
+}
+</style>
 </head>
+
 <body>
+
+<!-- WALLET ONBOARDING -->
+<div class="setup-overlay" id="walletSetup">
+  <div class="setup-box">
+
+    <div class="setup-brand">
+      <img
+        src="https://oinancelink.github.io/OINANCE-TECHNOLOGY1/IMG_20260916_192545.jpg"
+        alt="Official OINANCE logo">
+      <h1>OINANCE <span style="color:#e7bd65">WALLET</span></h1>
+      <p>Your digital assets. Your future.</p>
+    </div>
+
+    <section class="setup-card" id="setupWelcome">
+      <p class="setup-step">WELCOME</p>
+      <h2>Your financial world, in one wallet.</h2>
+      <p>
+        Explore the OINANCE Wallet prototype and preview the steps
+        involved in setting up a digital-asset wallet.
+      </p>
+
+      <div class="setup-actions">
+        <button class="setup-button primary" type="button"
+          onclick="showSetupScreen('setupCreate')">
+          Create a New Wallet
+        </button>
+
+        <button class="setup-button" type="button"
+          onclick="showSetupScreen('setupImport')">
+          Import an Existing Wallet
+        </button>
+
+        <button class="setup-button" type="button"
+          onclick="enterDemo()">
+          Explore Demo Dashboard
+        </button>
+      </div>
+
+      <div class="setup-note">
+        DEMO ONLY: No real wallet is created. Do not enter real recovery
+        words, private keys, passwords, or PINs.
+      </div>
+    </section>
+
+    <section class="setup-card" id="setupCreate" hidden>
+      <p class="setup-step">STEP 1 OF 4</p>
+      <h2>Create your wallet</h2>
+      <p>
+        A real non-custodial wallet needs to generate cryptographic keys
+        securely on your device. This website prototype does not yet do that.
+      </p>
+      <ul class="setup-list">
+        <li>Generate a secure wallet key</li>
+        <li>Back up a recovery phrase safely</li>
+        <li>Set up wallet access protection</li>
+        <li>Verify recovery before using funds</li>
+      </ul>
+      <div class="setup-note">
+        The next screens are previews only. They will not generate a
+        recovery phrase or create an actual wallet.
+      </div>
+      <div class="setup-actions">
+        <button class="setup-button primary" type="button"
+          onclick="showSetupScreen('setupBackup')">
+          Preview Backup Steps
+        </button>
+        <button class="setup-button" type="button"
+          onclick="showSetupScreen('setupWelcome')">
+          Back
+        </button>
+      </div>
+    </section>
+
+    <section class="setup-card" id="setupBackup" hidden>
+      <p class="setup-step">STEP 2 OF 4</p>
+      <h2>Back up your recovery phrase</h2>
+      <p>
+        A genuine wallet recovery phrase can restore access to your funds.
+        Anyone who obtains it may be able to control those funds.
+      </p>
+      <ul class="setup-list">
+        <li>Only use a phrase generated by a properly implemented wallet.</li>
+        <li>Write it down privately and store it securely offline.</li>
+        <li>Never share it with anyone, including support staff.</li>
+        <li>Never enter it into this demonstration website.</li>
+      </ul>
+      <div class="setup-note">
+        No recovery words are displayed here because this prototype
+        cannot generate a real, secure recovery phrase.
+      </div>
+      <div class="setup-actions">
+        <button class="setup-button primary" type="button"
+          onclick="showSetupScreen('setupPin')">
+          Continue to PIN Preview
+        </button>
+        <button class="setup-button" type="button"
+          onclick="showSetupScreen('setupCreate')">
+          Back
+        </button>
+      </div>
+    </section>
+
+    <section class="setup-card" id="setupPin" hidden>
+      <p class="setup-step">STEP 3 OF 4</p>
+      <h2>Preview PIN setup</h2>
+      <p>
+        A finished wallet may use a PIN to unlock the app. A PIN alone
+        is not enough to protect wallet funds.
+      </p>
+      <label for="demoPin">Enter any six digits for this visual preview</label>
+      <input class="setup-field" id="demoPin"
+        type="password" inputmode="numeric" maxlength="6"
+        autocomplete="off" placeholder="••••••"
+        aria-label="Demo PIN preview">
+
+      <p class="setup-message" id="pinMessage" aria-live="polite">
+        This preview PIN is not saved or used to protect anything.
+      </p>
+
+      <div class="setup-actions">
+        <button class="setup-button primary" type="button"
+          onclick="previewPin()">
+          Preview PIN Confirmation
+        </button>
+        <button class="setup-button" type="button"
+          onclick="showSetupScreen('setupBackup')">
+          Back
+        </button>
+      </div>
+    </section>
+
+    <section class="setup-card" id="setupImport" hidden>
+      <p class="setup-step">EXISTING WALLET</p>
+      <h2>Import a wallet</h2>
+      <p>
+        Wallet imports require a secure recovery process designed for
+        the selected blockchain. That functionality is not available yet.
+      </p>
+      <div class="setup-note">
+        Please do not type or paste your real recovery phrase or private
+        key into this prototype.
+      </div>
+      <div class="setup-actions">
+        <button class="setup-button primary" type="button"
+          onclick="showSetupScreen('setupImportInfo')">
+          View Import Requirements
+        </button>
+        <button class="setup-button" type="button"
+          onclick="showSetupScreen('setupWelcome')">
+          Back
+        </button>
+      </div>
+    </section>
+
+    <section class="setup-card" id="setupImportInfo" hidden>
+      <p class="setup-step">IMPORT REQUIREMENTS</p>
+      <h2>Secure import is not ready yet</h2>
+      <p>
+        Before import can be enabled, OINANCE Wallet needs a supported
+        network, audited key-handling code, secure local storage, and
+        recovery verification.
+      </p>
+      <div class="setup-actions">
+        <button class="setup-button primary" type="button"
+          onclick="enterDemo()">
+          Open Demo Dashboard
+        </button>
+        <button class="setup-button" type="button"
+          onclick="showSetupScreen('setupImport')">
+          Back
+        </button>
+      </div>
+    </section>
+
+    <section class="setup-card" id="setupComplete" hidden>
+      <p class="setup-step">PREVIEW COMPLETE</p>
+      <h2>Welcome to OINANCE Wallet</h2>
+      <p>
+        You've viewed the planned setup steps. This is not an active
+        cryptocurrency wallet and no keys or recovery phrase were created.
+      </p>
+      <div class="setup-note">
+        The dashboard contains sample balances and market data. Do not
+        use it to receive, store, or send real cryptocurrency.
+      </div>
+      <div class="setup-actions">
+        <button class="setup-button primary" type="button"
+          onclick="enterDemo()">
+          Open Dashboard
+        </button>
+      </div>
+    </section>
+
+    <div class="setup-footer">
+      OINANCE Technology · Wallet prototype<br>
+      Never share your recovery phrase or private keys.
+    </div>
+  </div>
+</div>
+
+<!-- MAIN OINANCE WALLET DASHBOARD -->
 <div class="app">
 
   <aside class="sidebar">
@@ -221,7 +561,6 @@
 
     <!-- EXPLORE CRYPTOCURRENCIES -->
     <section class="panel action-panel" id="explore-assets">
-
       <div class="panel-heading">
         <div>
           <h2>Explore Cryptocurrencies</h2>
@@ -231,9 +570,7 @@
       </div>
 
       <div class="asset-search">
-        <input
-          id="assetSearch"
-          type="search"
+        <input id="assetSearch" type="search"
           placeholder="Search Bitcoin, Ethereum, BTC..."
           aria-label="Search cryptocurrencies">
 
@@ -249,90 +586,57 @@
       </div>
 
       <div id="cryptoDetails" class="crypto-details" hidden>
+        <button type="button" id="closeCryptoDetails" class="close-details">
+          ← Back to Markets
+        </button>
 
-  <button type="button" id="closeCryptoDetails" class="close-details">
-    ← Back to Markets
-  </button>
+        <div class="crypto-details-header">
+          <img id="detailsCoinLogo" src="" alt="Cryptocurrency logo">
+          <div>
+            <h2 id="detailsCoinName">Bitcoin</h2>
+            <p id="detailsCoinSymbol">BTC</p>
+          </div>
+        </div>
 
-  <div class="crypto-details-header">
-    <img id="detailsCoinLogo" src="" alt="Cryptocurrency logo">
+        <div class="crypto-details-price-card">
+          <p>Current Price</p>
+          <h2 id="detailsCoinPrice">Loading...</h2>
+          <p id="detailsCoinChange">Loading 24-hour change...</p>
+        </div>
 
-    <div>
-      <h2 id="detailsCoinName">Bitcoin</h2>
-      <p id="detailsCoinSymbol">BTC</p>
-    </div>
-  </div>
+        <div class="crypto-details-stats">
+          <div><span>Market Cap</span><strong id="detailsMarketCap">Loading...</strong></div>
+          <div><span>24h High</span><strong id="detailsHigh">Loading...</strong></div>
+          <div><span>24h Low</span><strong id="detailsLow">Loading...</strong></div>
+          <div><span>24h Trading Volume</span><strong id="detailsVolume">Loading...</strong></div>
+          <div><span>Market Rank</span><strong id="detailsRank">Loading...</strong></div>
+        </div>
 
-  <div class="crypto-details-price-card">
-    <p>Current Price</p>
-    <h2 id="detailsCoinPrice">Loading...</h2>
-    <p id="detailsCoinChange">Loading 24-hour change...</p>
-  </div>
+        <div class="details-actions">
+          <button type="button" id="detailsSendButton">Send</button>
+          <button type="button" id="detailsReceiveButton">Receive</button>
+          <button type="button" id="detailsSwapButton">Swap</button>
+        </div>
 
-  <div class="crypto-details-stats">
+        <p class="details-chart-note">Market information is provided for reference.</p>
+        <p id="detailsStatus" class="muted" aria-live="polite"></p>
+      </div>
 
-    <div>
-      <span>Market Cap</span>
-      <strong id="detailsMarketCap">Loading...</strong>
-    </div>
+      <div id="assetDirectory" class="asset-directory">
+        <p class="muted">Loading cryptocurrency listings...</p>
+      </div>
 
-    <div>
-      <span>24h High</span>
-      <strong id="detailsHigh">Loading...</strong>
-    </div>
-
-    <div>
-      <span>24h Low</span>
-      <strong id="detailsLow">Loading...</strong>
-    </div>
-
-    <div>
-      <span>24h Trading Volume</span>
-      <strong id="detailsVolume">Loading...</strong>
-    </div>
-
-    <div>
-      <span>Market Rank</span>
-      <strong id="detailsRank">Loading...</strong>
-    </div>
-
-  </div>
-
-  <div class="details-actions">
-    <button type="button" id="detailsSendButton">Send</button>
-    <button type="button" id="detailsReceiveButton">Receive</button>
-    <button type="button" id="detailsSwapButton">Swap</button>
-  </div>
-
-  <p class="details-chart-note">
-    Market information is provided for reference.
-  </p>
-
-  <p id="detailsStatus" class="muted" aria-live="polite"></p>
-
-</div>
-
-  </div>  <p id="detailsStatus" class="muted" aria-live="polite"></p>
-</div><div id="assetDirectory" class="asset-directory">
-  <p class="muted">Loading cryptocurrency listings...</p>
-</div>
-
-      <button
-        class="button button-outline"
-        id="loadMoreAssets"
-        type="button"
-        hidden>
+      <button class="button button-outline" id="loadMoreAssets"
+        type="button" hidden>
         Load more assets
       </button>
 
       <p class="data-attribution">
         Market data provided by
-        <a href="https://coinpaprika.com/"
-           target="_blank"
-           rel="noopener noreferrer">CoinPaprika</a>.
+        <a href="https://coinpaprika.com/" target="_blank"
+          rel="noopener noreferrer">CoinPaprika</a>.
         Listings and logos depend on external service availability.
       </p>
-
     </section>
 
     <section class="panel action-panel" id="send">
@@ -342,6 +646,7 @@
           <p class="muted">Demonstration only. Nothing will be sent.</p>
         </div>
       </div>
+
       <form id="sendForm">
         <label for="sendNetwork">Network</label>
         <select id="sendNetwork">
@@ -350,10 +655,14 @@
           <option>BNB Chain</option>
           <option>Solana</option>
         </select>
+
         <label for="sendAddress">Recipient label</label>
         <input id="sendAddress" type="text" placeholder="Demo only">
+
         <label for="sendAmount">Amount</label>
-        <input id="sendAmount" type="number" min="0" step="any" placeholder="0.00">
+        <input id="sendAmount" type="number" min="0" step="any"
+          placeholder="0.00">
+
         <button class="button button-primary" type="submit">Preview transfer</button>
         <p id="sendMessage" class="form-message" role="status"></p>
       </form>
@@ -417,5 +726,68 @@
 </div>
 
 <script src="script.js"></script>
+
+<script>
+/* ONBOARDING PREVIEW CONTROLS */
+function showSetupScreen(screenId) {
+  var screens = [
+    "setupWelcome",
+    "setupCreate",
+    "setupBackup",
+    "setupPin",
+    "setupImport",
+    "setupImportInfo",
+    "setupComplete"
+  ];
+
+  screens.forEach(function(id) {
+    var element = document.getElementById(id);
+    if (element) element.hidden = id !== screenId;
+  });
+
+  var pin = document.getElementById("demoPin");
+  var message = document.getElementById("pinMessage");
+
+  if (screenId !== "setupPin" && pin) {
+    pin.value = "";
+  }
+
+  if (screenId === "setupComplete") {
+    var overlay = document.getElementById("walletSetup");
+    if (overlay) overlay.hidden = false;
+  }
+}
+
+function previewPin() {
+  var pin = document.getElementById("demoPin");
+  var message = document.getElementById("pinMessage");
+
+  if (!pin || !message) return;
+
+  if (!/^\d{6}$/.test(pin.value)) {
+    message.textContent = "For this preview, enter exactly six digits.";
+    return;
+  }
+
+  /* Do not save or retain the entered PIN. */
+  pin.value = "";
+  message.textContent =
+    "Preview only: the digits were cleared and were not saved. " +
+    "No PIN or wallet security has been activated.";
+
+  showSetupScreen("setupComplete");
+}
+
+function enterDemo() {
+  var overlay = document.getElementById("walletSetup");
+  var pin = document.getElementById("demoPin");
+
+  if (pin) pin.value = "";
+  if (overlay) overlay.hidden = true;
+
+  window.scrollTo(0, 0);
+}
+</script>
+
 </body>
 </html>
