@@ -1,16 +1,23 @@
+/* =========================================
+   OINANCE WALLET — NEW DESIGN
+   White • Black • Orange • Lime
+========================================= */
+
 :root {
-  --bg: #080b10;
-  --sidebar: #0c1017;
-  --panel: #101620;
-  --panel-light: #151d29;
-  --border: #222d3b;
-  --gold: #d9b66d;
-  --gold-light: #f1d69a;
-  --text: #f4f6fa;
-  --muted: #8995a6;
-  --green: #36d399;
-  --red: #ff6b78;
-  --radius: 18px;
+  --bg: #f7f8fa;
+  --sidebar: #ffffff;
+  --panel: #ffffff;
+  --panel-light: #f1f2f4;
+  --border: #e9eaed;
+  --gold: #ff861c;
+  --gold-light: #ff9c42;
+  --orange: #ff861c;
+  --lime: #c7f36b;
+  --text: #171717;
+  --muted: #858585;
+  --green: #239b65;
+  --red: #e44e58;
+  --radius: 20px;
 }
 
 * {
@@ -26,8 +33,8 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Arial, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -62,9 +69,9 @@ button {
 .sidebar {
   position: fixed;
   inset: 0 auto 0 0;
-  width: 248px;
+  width: 245px;
   padding: 27px 18px;
-  background: var(--sidebar);
+  background: #fff;
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -89,7 +96,7 @@ button {
 }
 
 .brand small {
-  color: var(--gold);
+  color: var(--orange);
   font-size: 10px;
   letter-spacing: 3px;
 }
@@ -98,13 +105,12 @@ button {
   width: 43px;
   height: 43px;
   min-width: 43px;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--border);
   border-radius: 13px;
   display: block;
   object-fit: contain;
   padding: 3px;
-  box-sizing: border-box;
-  background: #080b10;
+  background: #fff;
 }
 
 .navigation {
@@ -118,7 +124,7 @@ button {
   align-items: center;
   gap: 14px;
   padding: 12px 15px;
-  border-radius: 11px;
+  border-radius: 12px;
   color: var(--muted);
   font-size: 14px;
   transition: 0.2s ease;
@@ -126,13 +132,12 @@ button {
 
 .nav-link:hover {
   color: var(--text);
-  background: var(--panel-light);
+  background: #f4f4f4;
 }
 
 .nav-link.active {
-  color: var(--gold-light);
-  background: rgba(217, 182, 109, 0.1);
-  border: 1px solid rgba(217, 182, 109, 0.13);
+  color: #fff;
+  background: var(--orange);
 }
 
 .sidebar-bottom {
@@ -147,7 +152,7 @@ button {
   gap: 8px;
   padding: 12px;
   color: var(--muted);
-  background: var(--panel);
+  background: #f7f7f7;
   border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 11px;
@@ -165,7 +170,7 @@ button {
 /* MAIN LAYOUT */
 
 .main-content {
-  margin-left: 248px;
+  margin-left: 245px;
   padding: 0 38px 35px;
   max-width: 1800px;
 }
@@ -177,7 +182,7 @@ button {
   justify-content: space-between;
   gap: 15px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 
 .topbar-label {
@@ -191,9 +196,9 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--gold-light);
-  background: rgba(217, 182, 109, 0.08);
-  border: 1px solid rgba(217, 182, 109, 0.2);
+  color: #a85a0b;
+  background: #fff3e8;
+  border: 1px solid #ffdfc2;
   border-radius: 30px;
   padding: 7px 12px;
   font-size: 10px;
@@ -220,12 +225,12 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 28px;
+  margin-bottom: 25px;
 }
 
 .eyebrow {
   margin: 0 0 9px;
-  color: var(--gold);
+  color: var(--orange);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 2.5px;
@@ -245,7 +250,7 @@ h1 {
 }
 
 h1 span {
-  color: var(--gold);
+  color: var(--orange);
 }
 
 .muted {
@@ -262,17 +267,19 @@ h1 span {
 .balance-card {
   position: relative;
   overflow: hidden;
-  padding: 29px;
+  padding: 30px;
   margin-bottom: 23px;
-  border: 1px solid rgba(217, 182, 109, 0.27);
-  border-radius: 22px;
+  border: none;
+  border-radius: 23px;
   background:
     radial-gradient(
-      circle at 90% 15%,
-      rgba(217, 182, 109, 0.12),
+      circle at 90% 10%,
+      rgba(255, 255, 255, 0.12),
       transparent 35%
     ),
-    linear-gradient(135deg, #151d29, #0d121a 75%);
+    linear-gradient(120deg, #171717, #292929);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .balance-top {
@@ -280,21 +287,22 @@ h1 span {
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  color: var(--muted);
+  color: #c7c7c7;
   font-size: 12px;
 }
 
 .demo-label {
   padding: 4px 8px;
-  border: 1px solid rgba(217, 182, 109, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
-  color: var(--gold-light);
+  color: var(--lime);
   font-size: 9px;
   letter-spacing: 1px;
 }
 
 .balance-card h2 {
   margin: 15px 0 3px;
+  color: #fff;
   font-size: clamp(32px, 5vw, 46px);
   font-weight: 750;
   letter-spacing: -1.5px;
@@ -306,17 +314,19 @@ h1 span {
 }
 
 .balance-card > p {
+  color: #ccc;
   font-size: 12px;
 }
 
 .balance-card > p .muted {
   margin-left: 5px;
+  color: #aaa;
 }
 
 .balance-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 11px;
+  gap: 10px;
   margin-top: 24px;
 }
 
@@ -327,13 +337,13 @@ h1 span {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 43px;
-  padding: 10px 19px;
+  min-height: 44px;
+  padding: 11px 19px;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 11px;
   font-size: 12px;
   font-weight: 750;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .button:hover {
@@ -341,27 +351,27 @@ h1 span {
 }
 
 .button-primary {
-  color: #17130b;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  color: #171717;
+  background: var(--orange);
 }
 
 .button-primary:hover {
-  background: #f5dda8;
+  background: #ff9a43;
 }
 
 .button-light {
-  color: #11151c;
-  background: #f3f4f6;
+  color: #171717;
+  background: var(--lime);
 }
 
 .button-outline {
-  color: var(--text);
+  color: #fff;
   background: transparent;
-  border-color: var(--border);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .button-outline:hover {
-  border-color: var(--gold);
+  border-color: var(--orange);
 }
 
 /* QUICK STATS */
@@ -379,9 +389,9 @@ h1 span {
   gap: 11px;
   min-width: 0;
   padding: 17px 14px;
-  background: var(--panel);
+  background: #fff;
   border: 1px solid var(--border);
-  border-radius: 15px;
+  border-radius: 16px;
 }
 
 .stat-icon {
@@ -391,8 +401,8 @@ h1 span {
   height: 38px;
   min-width: 38px;
   border-radius: 12px;
-  background: var(--panel-light);
-  color: var(--gold);
+  background: #fff1e5;
+  color: var(--orange);
   font-size: 19px;
   font-weight: 800;
 }
@@ -429,9 +439,10 @@ h1 span {
   min-width: 0;
   margin-bottom: 22px;
   padding: 22px;
-  background: var(--panel);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.025);
 }
 
 .panel-heading {
@@ -456,7 +467,7 @@ h1 span {
 .pill {
   padding: 5px 9px;
   border-radius: 6px;
-  background: var(--panel-light);
+  background: #f1f1f1;
   color: var(--muted);
   font-size: 10px;
 }
@@ -489,23 +500,23 @@ h1 span {
 }
 
 .coin-btc {
-  color: #ffbd58;
-  background: rgba(255, 189, 88, 0.12);
+  color: #e99420;
+  background: #fff1df;
 }
 
 .coin-eth {
-  color: #b5c4ff;
-  background: rgba(145, 163, 255, 0.12);
+  color: #6479cb;
+  background: #eef0ff;
 }
 
 .coin-bnb {
-  color: #f5ce62;
-  background: rgba(245, 206, 98, 0.12);
+  color: #d5a51b;
+  background: #fff8df;
 }
 
 .coin-sol {
-  color: #b6f2d0;
-  background: rgba(91, 211, 164, 0.12);
+  color: #209c70;
+  background: #e6f8ef;
 }
 
 .asset-name,
@@ -561,8 +572,8 @@ h1 span {
   height: 36px;
   min-width: 36px;
   border-radius: 10px;
-  color: var(--gold);
-  background: var(--panel-light);
+  color: var(--orange);
+  background: #fff1e5;
   font-size: 18px;
 }
 
@@ -579,13 +590,13 @@ h1 span {
 .notice {
   margin-top: 16px;
   padding: 13px;
-  border: 1px solid rgba(217, 182, 109, 0.17);
-  border-radius: 10px;
-  background: rgba(217, 182, 109, 0.05);
+  border: 1px solid #ffe0c3;
+  border-radius: 12px;
+  background: #fff8f1;
 }
 
 .notice strong {
-  color: var(--gold-light);
+  color: #b65c0c;
   font-size: 11px;
 }
 
@@ -618,19 +629,19 @@ h1 span {
   min-height: 46px;
   padding: 12px 13px;
   color: var(--text);
-  background: #0b1017;
+  background: #fafafa;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 11px;
   outline: none;
 }
 
 .action-panel input:focus,
 .action-panel select:focus {
-  border-color: var(--gold);
+  border-color: var(--orange);
 }
 
 .action-panel input::placeholder {
-  color: #657184;
+  color: #aaa;
 }
 
 .action-panel form .button {
@@ -639,7 +650,7 @@ h1 span {
 
 .form-message {
   margin: 12px 0 0;
-  color: var(--gold-light);
+  color: #b65c0c;
   font-size: 12px;
   overflow-wrap: anywhere;
 }
@@ -687,160 +698,8 @@ h1 span {
   margin: 3px 0 0;
 }
 
-/* TABLETS */
+/* CRYPTO LOGOS */
 
-@media (max-width: 1200px) {
-  .main-content {
-    padding-right: 24px;
-    padding-left: 24px;
-  }
-
-  .quick-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* MOBILE */
-
-@media (max-width: 760px) {
-  .sidebar {
-    display: none;
-  }
-
-  .main-content {
-    margin-left: 0;
-    padding: 0 15px 28px;
-  }
-
-  .topbar {
-    min-height: 68px;
-    margin-bottom: 26px;
-  }
-
-  .mobile-brand {
-    display: flex;
-    font-size: 13px;
-  }
-
-  .topbar-label {
-    display: none;
-  }
-
-  .demo-badge {
-    padding: 6px 9px;
-    font-size: 9px;
-  }
-
-  .welcome-section {
-    margin-bottom: 22px;
-  }
-
-  h1 {
-    font-size: 27px;
-  }
-
-  .balance-card {
-    padding: 22px 18px;
-    border-radius: 18px;
-  }
-
-  .balance-card h2 {
-    font-size: 35px;
-  }
-
-  .balance-actions {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .balance-actions .button {
-    padding: 10px 7px;
-    font-size: 11px;
-  }
-
-  .quick-stats {
-    gap: 10px;
-  }
-
-  .stat-card {
-    padding: 13px 10px;
-    gap: 9px;
-  }
-
-  .stat-icon {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    font-size: 16px;
-  }
-
-  .stat-card strong {
-    font-size: 12px;
-  }
-
-  .stat-card > .positive {
-    display: none;
-  }
-
-  .panel {
-    padding: 17px 14px;
-    border-radius: 15px;
-  }
-
-  .asset-row {
-    gap: 9px;
-  }
-
-  .coin {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-  }
-
-  .asset-name strong,
-  .asset-value strong {
-    font-size: 11px;
-  }
-
-  .asset-name small,
-  .asset-value small {
-    font-size: 9px;
-  }
-
-  .activity-row {
-    gap: 8px;
-  }
-
-  .activity-row > strong {
-    max-width: 90px;
-  }
-
-  .footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 360px) {
-  .main-content {
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-
-  .quick-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .balance-card h2 {
-    font-size: 30px;
-  }
-}
-/* Cryptocurrency logo images */
 .crypto-icon {
   display: block;
   width: 41px;
@@ -849,7 +708,7 @@ h1 span {
   object-fit: contain;
   border-radius: 50%;
   flex-shrink: 0;
-  background: #ffffff;
+  background: #fff;
   padding: 2px;
 }
 
@@ -865,21 +724,7 @@ h1 span {
   min-width: 41px;
 }
 
-@media (max-width: 760px) {
-  .stat-card .crypto-icon {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-  }
-
-  .asset-row .crypto-icon {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-  }
-}
-
-/* OINANCE CRYPTOCURRENCY DIRECTORY */
+/* CRYPTOCURRENCY DIRECTORY */
 
 .asset-search {
   display: grid;
@@ -894,7 +739,7 @@ h1 span {
   min-height: 46px;
   padding: 12px;
   color: var(--text);
-  background: #0b1017;
+  background: #fafafa;
   border: 1px solid var(--border);
   border-radius: 10px;
   outline: none;
@@ -902,7 +747,7 @@ h1 span {
 
 .asset-search input:focus,
 .asset-search select:focus {
-  border-color: var(--gold);
+  border-color: var(--orange);
 }
 
 .asset-directory-info {
@@ -978,7 +823,7 @@ h1 span {
 }
 
 .data-attribution a {
-  color: var(--gold-light);
+  color: #c76713;
   text-decoration: underline;
 }
 
@@ -987,24 +832,7 @@ h1 span {
   margin-top: 18px;
 }
 
-@media (max-width: 600px) {
-  .asset-search {
-    grid-template-columns: 1fr;
-  }
-
-  .directory-logo {
-    width: 35px;
-    height: 35px;
-    min-width: 35px;
-  }
-
-  .directory-price {
-    min-width: 80px;
-  }
-}
-/* ==================================
-   OINANCE WALLET - COIN DETAILS
-================================== */
+/* COIN DETAILS */
 
 .crypto-details {
   width: 100%;
@@ -1012,9 +840,9 @@ h1 span {
   margin: 24px auto;
   padding: 22px;
   box-sizing: border-box;
-  color: #f5f5f5;
-  background: #101010;
-  border: 1px solid #302819;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
   border-radius: 22px;
 }
 
@@ -1028,9 +856,9 @@ h1 span {
   gap: 8px;
   margin-bottom: 26px;
   padding: 10px 15px;
-  color: #e4bd65;
-  background: #1b1914;
-  border: 1px solid #49391d;
+  color: #b65c0c;
+  background: #fff4e9;
+  border: 1px solid #ffe0c3;
   border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
@@ -1038,7 +866,7 @@ h1 span {
 }
 
 .close-details:hover {
-  background: #292217;
+  background: #ffe9d5;
 }
 
 .crypto-details-header {
@@ -1057,14 +885,14 @@ h1 span {
 
 .crypto-details-header h2 {
   margin: 0 0 6px;
-  color: #ffffff;
+  color: #171717;
   font-size: 25px;
   font-weight: 700;
 }
 
 .crypto-details-header p {
   margin: 0;
-  color: #aaa49a;
+  color: #999;
   font-size: 14px;
   text-transform: uppercase;
 }
@@ -1072,20 +900,21 @@ h1 span {
 .crypto-details-price-card {
   padding: 24px 20px;
   margin-bottom: 22px;
-  background: linear-gradient(135deg, #211c11, #141414);
-  border: 1px solid #49391d;
+  background: #171717;
+  border: 1px solid #292929;
   border-radius: 18px;
+  color: #fff;
 }
 
 .crypto-details-price-card > p:first-child {
   margin: 0 0 10px;
-  color: #b9b1a2;
+  color: #ccc;
   font-size: 14px;
 }
 
 .crypto-details-price-card h2 {
   margin: 0 0 12px;
-  color: #f0cc75;
+  color: var(--lime);
   font-size: clamp(27px, 6vw, 38px);
   overflow-wrap: anywhere;
 }
@@ -1115,19 +944,18 @@ h1 span {
   min-width: 0;
   min-height: 76px;
   padding: 16px;
-  box-sizing: border-box;
-  background: #191919;
-  border: 1px solid #2d2a24;
+  background: #f7f7f7;
+  border: 1px solid var(--border);
   border-radius: 14px;
 }
 
 .crypto-details-stats span {
-  color: #a9a49a;
+  color: #999;
   font-size: 12px;
 }
 
 .crypto-details-stats strong {
-  color: #f4f0e8;
+  color: #171717;
   font-size: 15px;
   overflow-wrap: anywhere;
 }
@@ -1142,18 +970,18 @@ h1 span {
 .details-actions button {
   min-height: 48px;
   padding: 12px 8px;
-  color: #15120b;
-  background: #e4bd65;
-  border: 1px solid #e4bd65;
+  color: #171717;
+  background: var(--orange);
+  border: 1px solid var(--orange);
   border-radius: 12px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .details-actions button:hover {
-  background: #f1d58e;
+  background: #ffa14d;
   transform: translateY(-1px);
 }
 
@@ -1163,15 +991,227 @@ h1 span {
 
 .details-chart-note {
   margin: 18px 0 10px;
-  color: #918b80;
+  color: #999;
   font-size: 12px;
   line-height: 1.6;
 }
 
 #detailsStatus {
-  color: #c6bca9;
+  color: #777;
   font-size: 13px;
   line-height: 1.5;
+}
+
+/* TABLETS */
+
+@media (max-width: 1200px) {
+  .main-content {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .quick-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 760px) {
+  .sidebar {
+    display: flex;
+    position: fixed;
+    inset: auto 0 0 0;
+    width: 100%;
+    height: 69px;
+    padding: 7px 5px;
+    background: rgba(255, 255, 255, 0.97);
+    border-top: 1px solid var(--border);
+    border-right: none;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(12px);
+  }
+
+  .sidebar > .brand,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 3px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .nav-link {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
+    min-height: 52px;
+    padding: 5px 2px;
+    border-radius: 11px;
+    font-size: 9px;
+    text-align: center;
+  }
+
+  .nav-link.active {
+    color: var(--orange);
+    background: #fff2e7;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 0 15px 95px;
+  }
+
+  .topbar {
+    min-height: 68px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-brand {
+    display: flex;
+    font-size: 13px;
+  }
+
+  .topbar-label {
+    display: none;
+  }
+
+  .demo-badge {
+    padding: 6px 9px;
+    font-size: 9px;
+  }
+
+  .welcome-section {
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .balance-card {
+    padding: 23px 18px;
+    border-radius: 20px;
+  }
+
+  .balance-card h2 {
+    font-size: 35px;
+  }
+
+  .balance-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .balance-actions .button {
+    padding: 10px 7px;
+    font-size: 10px;
+  }
+
+  .quick-stats {
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 13px 10px;
+    gap: 9px;
+  }
+
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 16px;
+  }
+
+  .stat-card strong {
+    font-size: 12px;
+  }
+
+  .stat-card > .positive {
+    display: none;
+  }
+
+  .panel {
+    padding: 17px 14px;
+    border-radius: 16px;
+  }
+
+  .asset-row {
+    gap: 9px;
+  }
+
+  .coin {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+
+  .asset-name strong,
+  .asset-value strong {
+    font-size: 11px;
+  }
+
+  .asset-name small,
+  .asset-value small {
+    font-size: 9px;
+  }
+
+  .activity-row {
+    gap: 8px;
+  }
+
+  .activity-row > strong {
+    max-width: 90px;
+  }
+
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .stat-card .crypto-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .asset-row .crypto-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 600px) {
+  .asset-search {
+    grid-template-columns: 1fr;
+  }
+
+  .directory-logo {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+  }
+
+  .directory-price {
+    min-width: 80px;
+  }
 }
 
 @media (max-width: 420px) {
@@ -1198,5 +1238,20 @@ h1 span {
 
   .details-actions button {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .main-content {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .balance-card h2 {
+    font-size: 30px;
   }
 }
